@@ -1,18 +1,10 @@
 import 'package:flutter/material.dart';
 
 class PaymentCard extends StatefulWidget {
-  final bool value;
-  final ValueChanged<bool> onChanged;
-  final double size;
-  final Color activeColor;
-  final Color checkColor;
+
 
   PaymentCard({super.key,
-     required this.value,
-     required this.onChanged,
-     required this.size,
-     required this.activeColor,
-     required this.checkColor,
+
    });
 
 
@@ -49,9 +41,7 @@ class _PaymentCardState extends State<PaymentCard> {
               ],
             ),
 
-            trailing: Checkbox(
 
-            ),
           ),
         ),
       ),
