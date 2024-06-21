@@ -1,11 +1,9 @@
 import 'package:empowered_dating/view/payment_screen/payment_screen.dart';
-import 'package:empowered_dating/widgets/button_row.dart';
 import 'package:empowered_dating/widgets/button_widget.dart';
 import 'package:empowered_dating/widgets/simple_text.dart';
-import 'package:empowered_dating/widgets/text_field_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/button_row.dart';
 import '../widgets/profile_text_field.dart';
 
 
@@ -35,11 +33,11 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
     return  Scaffold(
       body: Container(
+        height: double.maxFinite,
         decoration: const BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.fill,
             image: AssetImage('assets/create_profile_background.png'),
-
           ),
         ),
         child: SingleChildScrollView(
@@ -65,13 +63,6 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
               ),
               Container(
                 padding: const EdgeInsets.only(left: 35,right: 35,top: 20, bottom: 20),
-                height: double.maxFinite,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.fitWidth,
-                    image: AssetImage('assets/background.png'),
-                  ),
-              ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
-   TextFormFieldWidget({super.key,this.maxLine = 1, required this.text, this.suffixIconColor,this.suffixIcon,required this.controller, required this.keyboardType});
+   TextFormFieldWidget({super.key,this.maxLine = 1, required this.text, this.suffixIconColor,this.suffixIcon,required this.controller, required this.keyboardType, this.validator});
 
   String text;
    final IconData? suffixIcon;
@@ -9,6 +9,7 @@ class TextFormFieldWidget extends StatelessWidget {
    final TextInputType keyboardType;
    final Color? suffixIconColor;
    int maxLine;
+   final String? Function(String?)? validator;
 
 
    @override
@@ -17,6 +18,11 @@ class TextFormFieldWidget extends StatelessWidget {
       keyboardType: keyboardType,
       controller: controller,
       maxLines: maxLine,
+      validator: (value){
+        if (value == null || value.isEmpty) {
+          return 'Please enter your username';
+        }
+      },
       decoration: InputDecoration(
         hintText: text,
         suffixIcon: suffixIcon != null ? Icon(suffixIcon, color: suffixIconColor,) : null,

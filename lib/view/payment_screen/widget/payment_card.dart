@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
 
 class PaymentCard extends StatefulWidget {
-   PaymentCard({super.key,});
+  final bool value;
+  final ValueChanged<bool> onChanged;
+  final double size;
+  final Color activeColor;
+  final Color checkColor;
+
+  PaymentCard({super.key,
+     required this.value,
+     required this.onChanged,
+     required this.size,
+     required this.activeColor,
+     required this.checkColor,
+   });
 
 
   @override
@@ -35,6 +47,10 @@ class _PaymentCardState extends State<PaymentCard> {
                 Text('Standard Offer',style: TextStyle( fontSize: 14, fontWeight: FontWeight.w400)),
                 Text('\$100.00 per week',style: TextStyle( fontSize: 18, fontWeight: FontWeight.w500, color: Color(0xffFDB813)))
               ],
+            ),
+
+            trailing: Checkbox(
+
             ),
           ),
         ),
