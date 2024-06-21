@@ -54,7 +54,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
               const SizedBox(height: 20,),
 
-              TextFormFieldWidget(text: 'Password', keyboardType: TextInputType.visiblePassword, controller: _passwordController,),
+              TextFormFieldWidget(text: 'Password', keyboardType: TextInputType.visiblePassword, controller: _passwordController,suffixIcon: Icons.visibility_off,suffixIconColor: Color(0xffACB6BE),),
 
 
               const Spacer(),

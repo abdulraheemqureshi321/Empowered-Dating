@@ -1,4 +1,5 @@
 import 'package:empowered_dating/view/Sign_up_screen.dart';
+import 'package:empowered_dating/view/create_profile_screen.dart';
 import 'package:empowered_dating/view/forgot_password_screen.dart';
 import 'package:flutter/material.dart';
 import '../widgets/button_widget.dart';
@@ -49,7 +50,7 @@ class _SignIpScreenState extends State<SignIpScreen> {
 
               const SizedBox(height: 20,),
 
-              TextFormFieldWidget(text: 'Password', keyboardType: TextInputType.visiblePassword, controller: _passwordController,),
+              TextFormFieldWidget(text: 'Password', keyboardType: TextInputType.visiblePassword, controller: _passwordController, suffixIcon: Icons.visibility_off,suffixIconColor: Color(0xffACB6BE),),
 
               const SizedBox(height: 5,),
               Align
@@ -64,7 +65,7 @@ class _SignIpScreenState extends State<SignIpScreen> {
               const Spacer(),
 
               ButtonWidget(text: 'Sign in', onPressed: (){
-
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> CreateProfileScreen()));
               },),
 
               const SizedBox(height: 5,),
