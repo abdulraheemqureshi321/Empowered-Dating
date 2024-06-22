@@ -1,4 +1,4 @@
-import 'package:empowered_dating/view/home_screen.dart';
+import 'package:empowered_dating/view/home_screen/home_screen.dart';
 import 'package:empowered_dating/view/matches_screen.dart';
 import 'package:empowered_dating/view/profile_screen.dart';
 import 'package:empowered_dating/view/select_chat_screen.dart';
