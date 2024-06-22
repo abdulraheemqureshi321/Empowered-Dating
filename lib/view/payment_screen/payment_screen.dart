@@ -3,6 +3,10 @@ import 'package:empowered_dating/widgets/button_widget.dart';
 import 'package:empowered_dating/widgets/simple_text.dart';
 import 'package:empowered_dating/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../controller/payment_controller.dart';
+
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
@@ -12,8 +16,10 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
+
   @override
   Widget build(BuildContext context) {
+    final PaymentController _controller = Get.put(PaymentController());
 
     return Scaffold(
       body: Container(
@@ -33,11 +39,27 @@ class _PaymentScreenState extends State<PaymentScreen> {
             const SizedBox(height: 5,),
             SimpleTextWidget(text: 'Lorem lpsum is simply dummy text of the printing and\nttpesetting industry. Lorem lpsum is simply dummy\ntext of the printing and typesetting industry.'),
             const SizedBox(height: 20,),
-             PaymentCard(),
+             Obx(()=>PaymentCard(
+               value: _controller.selectedContainerIndex.value == 0,
+               onChanged: (value) {
+                 _controller.toggleContainer(0);
+               },
+             ),),
+             SizedBox(height: 13,),
+
+            Obx(()=>PaymentCard(
+              value: _controller.selectedContainerIndex.value == 1,
+              onChanged: (value) {
+                _controller.toggleContainer(1);
+              },
+            ),),
             const SizedBox(height: 13,),
-             PaymentCard(),
-            const SizedBox(height: 13,),
-             PaymentCard(),
+            Obx(()=>PaymentCard(
+              value: _controller.selectedContainerIndex.value == 2,
+              onChanged: (value) {
+                _controller.toggleContainer(2);
+              },
+            ),),
                SizedBox(height: 100,),
 
                ButtonWidget(text: 'Subscribe', onPressed: (){
