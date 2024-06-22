@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/payment_controller.dart';
+import '../bottom_navigation.dart';
 
 
 class PaymentScreen extends StatefulWidget {
@@ -45,7 +46,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                  _controller.toggleContainer(0);
                },
              ),),
-             SizedBox(height: 13,),
+             const SizedBox(height: 13,),
 
             Obx(()=>PaymentCard(
               value: _controller.selectedContainerIndex.value == 1,
@@ -60,13 +61,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 _controller.toggleContainer(2);
               },
             ),),
-               SizedBox(height: 100,),
+               const SizedBox(height: 100,),
 
                ButtonWidget(text: 'Subscribe', onPressed: (){
-
-                             }),
-
-
+                 Navigator.push(context, MaterialPageRoute(builder: (context)=> const BottomNavigation()));
+               }),
           ],
         ),
       ),

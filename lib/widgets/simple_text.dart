@@ -12,7 +12,7 @@ class SimpleTextWidget extends StatelessWidget {
       textAlign: TextAlign.center,
       style: TextStyle(
           fontSize: fontSize,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.w500,
           color: const Color(0xffA4A4A4),
       ),
     );
