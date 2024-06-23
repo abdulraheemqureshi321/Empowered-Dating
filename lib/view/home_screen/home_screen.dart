@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Container(
-        padding: const EdgeInsets.only(left: 30, right: 30),
+        //padding: const EdgeInsets.only(left: 30),
         height: double.maxFinite,
         width: double.maxFinite,
         decoration: const BoxDecoration(
@@ -75,23 +75,26 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: Get.height / 6,
               ),
-              const Row(
-                children: [
-                  Text(
-                    'New Matches',
-                    style: TextStyle(fontSize: 14, color: Color(0xff5E5E5E)),
-                  ),
-                  Spacer(),
-                  Text(
-                    'See All',
-                    style: TextStyle(fontSize: 12, color: Color(0xff934C93)),
-                  ),
-                  Icon(
-                    Icons.arrow_forward,
-                    weight: 2,
-                    color: Color(0xff934C93),
-                  )
-                ],
+              Padding(
+                padding: const EdgeInsets.only(right: 20,left: 20),
+                child: const Row(
+                  children: [
+                    Text(
+                      'New Matches',
+                      style: TextStyle(fontSize: 14, color: Color(0xff5E5E5E)),
+                    ),
+                    Spacer(),
+                    Text(
+                      'See All',
+                      style: TextStyle(fontSize: 12, color: Color(0xff934C93)),
+                    ),
+                    Icon(
+                      Icons.arrow_forward,
+                      weight: 2,
+                      color: Color(0xff934C93),
+                    )
+                  ],
+                ),
               ),
               SizedBox(
                 height: 20,
@@ -102,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     for (int i = 0; i < images.length; i++)
                       Padding(
-                        padding: EdgeInsets.only(right: 5),
+                        padding: EdgeInsets.only(right: 5,left: 5),
                         child: CircleAvatar(
                           radius: 40,
                           backgroundImage: AssetImage(images[i]),
@@ -112,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 20, bottom: 20),
+                padding: const EdgeInsets.only(top: 20, bottom: 20,left: 20),
                 child: Text(
                   'Near You',
                   style: TextStyle(
@@ -123,77 +126,80 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    for (int i = 0; i < images2.length; i++)
-                      Padding(
-                        padding: EdgeInsets.only(right: 10),
-                        child: Container(
-                          height: 210,
-                          width: 280,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.fitWidth,
-                                image: AssetImage(images2[i]),
-                              ),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(left: 20, bottom: 20),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      titles[i],
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white),
-                                    ),
-                                    Text(
-                                      subTitles[i],
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.white.withOpacity(0.8)),
-                                    )
-                                  ],
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Row(
+                    children: [
+                      for (int i = 0; i < images2.length; i++)
+                        Padding(
+                          padding: EdgeInsets.only(right: 10,),
+                          child: Container(
+                            height: 210,
+                            width: 280,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  fit: BoxFit.fitWidth,
+                                  image: AssetImage(images2[i]),
                                 ),
-                              ),
-                              Spacer(),
-                              Align(
-                                alignment: Alignment.topRight,
-                                child: Padding(
-                                  padding: EdgeInsets.only(top: 15,right: 15),
-                                  child: Container(
-                                    height: 35,
-                                    width: 77,
-                                    decoration: BoxDecoration(
-                                        color: Color(0xffFFFFFF),
-                                        borderRadius: BorderRadius.circular(10)),
-                                    child: Center(
-                                      child: Text(
-                                        distance[i],
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left: 20, bottom: 20),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        titles[i],
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white),
+                                      ),
+                                      Text(
+                                        subTitles[i],
                                         style: TextStyle(
                                             fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xffC4C4C4)),
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.white.withOpacity(0.8)),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Spacer(),
+                                Align(
+                                  alignment: Alignment.topRight,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 15,right: 15),
+                                    child: Container(
+                                      height: 35,
+                                      width: 77,
+                                      decoration: BoxDecoration(
+                                          color: Color(0xffFFFFFF),
+                                          borderRadius: BorderRadius.circular(10)),
+                                      child: Center(
+                                        child: Text(
+                                          distance[i],
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xffC4C4C4)),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      )
-                  ],
+                        )
+                    ],
+                  ),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 20, bottom: 20),
+                padding: EdgeInsets.only(top: 20, bottom: 20,left: 20,right: 20),
                 child: const Row(
                   children: [
                     Text(
@@ -216,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               for(int i = 0; i < name.length; i++)
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
+                  padding: const EdgeInsets.only(bottom: 10,right: 30,left: 20),
                   child: HomeCard(title: name[i], subTitle: location[i], imageUri: profile[i]),
                 )
             ],

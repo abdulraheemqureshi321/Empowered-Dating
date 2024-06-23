@@ -28,6 +28,7 @@ class HomeCard extends StatelessWidget {
               fit: BoxFit.cover,
               image: AssetImage(imageUri),
             ),
+            borderRadius: BorderRadius.circular(10)
           ),
         ),
         title: Text(title,style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500),),
@@ -37,7 +38,7 @@ class HomeCard extends StatelessWidget {
             Text(subTitle,style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400, color: Color(0xff999999)),)
           ],
         ),
-        trailing: Icon(CupertinoIcons.heart_fill, color: Colors.grey,),
+        trailing: Icon(CupertinoIcons.heart_fill, color: Colors.grey,size: 30,),
     ),
     );
   }
