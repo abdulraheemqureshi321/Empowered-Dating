@@ -47,11 +47,11 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
 
               const SizedBox(height: 20,),
 
-              TextFormFieldWidget(text: 'New Password', keyboardType: TextInputType.emailAddress, controller: _passwordController,suffixIcon: Icons.visibility_off,suffixIconColor: Color(0xffACB6BE),),
+              TextFormFieldWidget(text: 'New Password', keyboardType: TextInputType.emailAddress, controller: _passwordController,suffixIcon: Icons.visibility_off,suffixIconColor: const Color(0xffACB6BE),),
 
               const SizedBox(height: 20,),
 
-              TextFormFieldWidget(text: 'Confirm Your Password', keyboardType: TextInputType.emailAddress, controller: _confirmController,suffixIcon: Icons.visibility_off,suffixIconColor: Color(0xffACB6BE),),
+              TextFormFieldWidget(text: 'Confirm Your Password', keyboardType: TextInputType.emailAddress, controller: _confirmController,suffixIcon: Icons.visibility_off,suffixIconColor: const Color(0xffACB6BE),),
 
               const SizedBox(height: 5,),
 

@@ -1,7 +1,7 @@
 import 'package:empowered_dating/view/home_screen/home_screen.dart';
-import 'package:empowered_dating/view/matches_screen.dart';
-import 'package:empowered_dating/view/profile_screen.dart';
-import 'package:empowered_dating/view/chat_screen/select_chat_screen.dart';
+import 'package:empowered_dating/view/notification_screens/matches_screen.dart';
+import 'package:empowered_dating/view/profile_screen/profile_screen.dart';
+import 'package:empowered_dating/view/select_chat_screen/select_chat_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

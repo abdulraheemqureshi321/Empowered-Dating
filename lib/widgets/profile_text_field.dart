@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ProfileTextFieldWidget extends StatelessWidget {
-   ProfileTextFieldWidget({super.key, this.radius = 32,this.maxLine,required this.text,this.suffixIcon, required this.controller, required this.keyboardType, this.suffixIconColor, this.prefixIcon, this.prefixIconColor});
+   ProfileTextFieldWidget({super.key, this.filledColor,this.radius = 32,this.maxLine,required this.text,this.suffixIcon, required this.controller, required this.keyboardType, this.suffixIconColor, this.prefixIcon, this.prefixIconColor});
 
    String text;
   final IconData? suffixIcon;
@@ -10,6 +10,8 @@ class ProfileTextFieldWidget extends StatelessWidget {
   final TextInputType keyboardType;
   final Color? suffixIconColor;
    final Color? prefixIconColor;
+   final Color? filledColor;
+
    int? maxLine;
   double radius;
   @override
@@ -19,6 +21,8 @@ class ProfileTextFieldWidget extends StatelessWidget {
       controller: controller,
       maxLines: maxLine,
       decoration: InputDecoration(
+        filled: filledColor != null ? true : false,
+        fillColor: filledColor,
         hintText: text,
         suffixIcon: suffixIcon != null ? Icon(suffixIcon, color: suffixIconColor,) : null,
         prefixIcon: prefixIcon != null ? Icon(prefixIcon, color: prefixIconColor,) : null,

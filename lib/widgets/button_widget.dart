@@ -13,19 +13,19 @@ class ButtonWidget extends StatelessWidget {
       width: double.maxFinite,
       child: ElevatedButton(
         onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xff934C93),
+            side: const BorderSide(
+                color: Colors.black,
+                width: 1
+            )
+        ),
         child: Text(text,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 22,
             color: Color(0xffFFFFFF),
             fontWeight: FontWeight.w500,
           ),
-        ),
-        style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xff934C93),
-            side: BorderSide(
-                color: Colors.black,
-                width: 1
-            )
         ),
       ),
     );

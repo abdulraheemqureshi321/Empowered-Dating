@@ -50,7 +50,7 @@ class _SignIpScreenState extends State<SignIpScreen> {
 
               const SizedBox(height: 20,),
 
-              TextFormFieldWidget(text: 'Password', keyboardType: TextInputType.visiblePassword, controller: _passwordController, suffixIcon: Icons.visibility_off,suffixIconColor: Color(0xffACB6BE),),
+              TextFormFieldWidget(text: 'Password', keyboardType: TextInputType.visiblePassword, controller: _passwordController, suffixIcon: Icons.visibility_off,suffixIconColor: const Color(0xffACB6BE),),
 
               const SizedBox(height: 5,),
               Align
@@ -58,14 +58,14 @@ class _SignIpScreenState extends State<SignIpScreen> {
                 alignment: Alignment.centerRight,
                   child: InkWell(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgotPasswordScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const ForgotPasswordScreen()));
                     },
                       child: TextWidget(text: 'Forgot Password', fontSize: 12,))
               ),
               const Spacer(),
 
               ButtonWidget(text: 'Sign in', onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> CreateProfileScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> const CreateProfileScreen()));
               },),
 
               const SizedBox(height: 5,),

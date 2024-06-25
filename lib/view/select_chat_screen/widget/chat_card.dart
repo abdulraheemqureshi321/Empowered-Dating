@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ChatCard extends StatelessWidget {
@@ -11,7 +10,7 @@ class ChatCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      padding: EdgeInsets.only(right: 7),
+      padding: const EdgeInsets.only(right: 7),
       height: 80,
       width: double.maxFinite,
      // padding: EdgeInsets.all(7),
@@ -27,12 +26,12 @@ class ChatCard extends StatelessWidget {
           radius: 50,
           backgroundImage:  AssetImage(imageUri),
         ),
-        title: Text(title,style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500),),
+        title: Text(title,style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w500),),
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 10),
-          child: Text(subTitle,style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400, color: Color(0xff999999)),),
+          child: Text(subTitle,style: const TextStyle(fontSize: 12,fontWeight: FontWeight.w400, color: Color(0xff999999)),),
         ),
-        trailing: Text('8:00 PM',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400, color: Color(0xff999999)),),
+        trailing: const Text('8:00 PM',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400, color: Color(0xff999999)),),
 
       ),
     );

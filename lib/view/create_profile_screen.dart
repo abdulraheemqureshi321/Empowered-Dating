@@ -2,8 +2,6 @@ import 'package:empowered_dating/view/payment_screen/payment_screen.dart';
 import 'package:empowered_dating/widgets/button_widget.dart';
 import 'package:empowered_dating/widgets/simple_text.dart';
 import 'package:flutter/material.dart';
-
-import '../widgets/button_row.dart';
 import '../widgets/profile_text_field.dart';
 
 
@@ -22,13 +20,13 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
   Widget build(BuildContext context) {
 
     double screenHight = MediaQuery.of(context).size.height;
-    final TextEditingController _nameController = TextEditingController();
-    final TextEditingController _locationController = TextEditingController();
-    final TextEditingController _jobController = TextEditingController();
-    final TextEditingController _companyController = TextEditingController();
-    final TextEditingController _collegeController = TextEditingController();
-    final TextEditingController _interestController = TextEditingController();
-    final TextEditingController _aboutMeController = TextEditingController();
+    final TextEditingController nameController = TextEditingController();
+    final TextEditingController locationController = TextEditingController();
+    final TextEditingController jobController = TextEditingController();
+    final TextEditingController companyController = TextEditingController();
+    final TextEditingController collegeController = TextEditingController();
+    final TextEditingController interestController = TextEditingController();
+    final TextEditingController aboutMeController = TextEditingController();
 
 
     return  Scaffold(
@@ -69,28 +67,28 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                     Padding(
                         padding: const EdgeInsets.only(left: 20,bottom: 5,top: 10),
                         child: SimpleTextWidget(text: 'Name',fontSize: 14,)),
-                    ProfileTextFieldWidget(text: 'Enter Your Name', controller: _nameController, keyboardType:TextInputType.text,suffixIconColor: const Color(0xffFDB813),suffixIcon: Icons.person,),
+                    ProfileTextFieldWidget(text: 'Enter Your Name', controller: nameController, keyboardType:TextInputType.text,suffixIconColor: const Color(0xffFDB813),suffixIcon: Icons.person,),
 
 
                     Padding(
                         padding: const EdgeInsets.only(left: 20,bottom: 5, top: 10),
                         child: SimpleTextWidget(text: 'Location',fontSize: 14,)),
-                    ProfileTextFieldWidget(text: 'Enter Your Location', controller: _locationController, keyboardType:TextInputType.text,suffixIconColor: const Color(0xffFDB813),suffixIcon: Icons.location_on_outlined,),
+                    ProfileTextFieldWidget(text: 'Enter Your Location', controller: locationController, keyboardType:TextInputType.text,suffixIconColor: const Color(0xffFDB813),suffixIcon: Icons.location_on_outlined,),
 
                     Padding(
                         padding: const EdgeInsets.only(left: 20,bottom: 5, top: 10),
                         child: SimpleTextWidget(text: 'Job',fontSize: 14,)),
-                    ProfileTextFieldWidget(text: 'Enter Your Job Name', controller: _jobController, keyboardType:TextInputType.text,suffixIconColor: const Color(0xffFDB813),suffixIcon: Icons.shopping_bag_outlined,),
+                    ProfileTextFieldWidget(text: 'Enter Your Job Name', controller: jobController, keyboardType:TextInputType.text,suffixIconColor: const Color(0xffFDB813),suffixIcon: Icons.shopping_bag_outlined,),
 
                     Padding(
                         padding: const EdgeInsets.only(left: 20,bottom: 5,top: 10),
                         child: SimpleTextWidget(text: 'Company',fontSize: 14,)),
-                    ProfileTextFieldWidget(text: 'Enter Your Company Name', controller: _companyController, keyboardType:TextInputType.text,suffixIconColor: const Color(0xffFDB813),suffixIcon: Icons.home_outlined,),
+                    ProfileTextFieldWidget(text: 'Enter Your Company Name', controller: companyController, keyboardType:TextInputType.text,suffixIconColor: const Color(0xffFDB813),suffixIcon: Icons.home_outlined,),
 
                     Padding(
                         padding: const EdgeInsets.only(left: 20,bottom: 5, top: 10),
                         child: SimpleTextWidget(text: 'College',fontSize: 14,)),
-                    ProfileTextFieldWidget(text: 'Enter Your College Name', controller: _collegeController, keyboardType:TextInputType.text,suffixIconColor: const Color(0xffFDB813),suffixIcon: Icons.school_outlined,),
+                    ProfileTextFieldWidget(text: 'Enter Your College Name', controller: collegeController, keyboardType:TextInputType.text,suffixIconColor: const Color(0xffFDB813),suffixIcon: Icons.school_outlined,),
 
                     Padding(
                       padding: const EdgeInsets.all(10),
@@ -98,17 +96,17 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                         alignment: Alignment.center,
                           child: SimpleTextWidget(text: 'Interest',fontSize: 14,)),
                     ),
-                    ProfileTextFieldWidget(text: 'Interest', controller: _interestController, keyboardType:TextInputType.text,suffixIconColor: const Color(0xff934C93),suffixIcon: Icons.add_circle,),
+                    ProfileTextFieldWidget(text: 'Interest', controller: interestController, keyboardType:TextInputType.text,suffixIconColor: const Color(0xff934C93),suffixIcon: Icons.add_circle,),
 
                     Padding(
                         padding: const EdgeInsets.only(left: 20,bottom: 5, top: 20),
                         child: SimpleTextWidget(text: 'About Me',fontSize: 14,)),
-                    ProfileTextFieldWidget(text: 'Enter Text', radius: 8, controller: _aboutMeController, keyboardType:TextInputType.text,maxLine: 6,),
+                    ProfileTextFieldWidget(text: 'Enter Text', radius: 8, controller: aboutMeController, keyboardType:TextInputType.text,maxLine: 6,),
 
                     Padding(
-                      padding: EdgeInsets.only(top: 10),
+                      padding: const EdgeInsets.only(top: 10),
                         child: ButtonWidget(text: 'Continue', onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> PaymentScreen()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const PaymentScreen()));
                         }))
 
                   ],

@@ -22,6 +22,7 @@ class TextFormFieldWidget extends StatelessWidget {
         if (value == null || value.isEmpty) {
           return 'Please enter your username';
         }
+        return null;
       },
       decoration: InputDecoration(
         hintText: text,

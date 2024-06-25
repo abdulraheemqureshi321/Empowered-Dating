@@ -1,10 +1,8 @@
 import 'package:empowered_dating/view/new_password_screen.dart';
 import 'package:empowered_dating/widgets/button_widget.dart';
 import 'package:empowered_dating/widgets/simple_text.dart';
-import 'package:empowered_dating/widgets/text_field_widget.dart';
 import 'package:empowered_dating/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerifyScreen extends StatefulWidget {
@@ -79,7 +77,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
               const Spacer(),
 
               ButtonWidget(text: 'Verify', onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> NewPasswordScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> const NewPasswordScreen()));
               },),
 
 
