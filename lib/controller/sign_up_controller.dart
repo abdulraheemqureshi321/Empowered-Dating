@@ -17,7 +17,7 @@ class SignUpColtroller extends GetxController{
     String res = await Authentication().signUpUser(email: emailController.text, password: passwordController.text, name: nameController.text);
 
     if(res == "success"){
-     // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
+      // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
     }
   }
 }

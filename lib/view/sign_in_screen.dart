@@ -45,75 +45,78 @@ class _SignIpScreenState extends State<SignIpScreen> {
         ),
         child:  Padding(
           padding: const EdgeInsets.only(top: 100, left: 40,right: 40, bottom: 20),
-          child: Column(
-            children: [
-          const Image(image: AssetImage(ConstantImages.customLogo),height: 128, width: 155,),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+            const Image(image: AssetImage(ConstantImages.customLogo),height: 128, width: 155,),
 
-              const SizedBox(height: 70,),
+                const SizedBox(height: 70,),
 
-              TextWidget(text: 'Sign in', fontSize: 45,),
+                TextWidget(text: 'Sign in', fontSize: 45,),
 
-              SimpleTextWidget(text: 'Please login to continue using our app'),
+                SimpleTextWidget(text: 'Please login to continue using our app'),
 
-              const SizedBox(height: 40,),
-              Form(
-                key : signInController.formKey,
-                child: Column(
-                  children: [
-                    TextFormFieldWidget(text: 'Your Email', keyboardType: TextInputType.emailAddress, controller: signInController.emailController,validator: (value){
-                      if(value!.isEmpty){
-                        return 'Enter email';
-                      }
-                      return null;
-                    }),
+                const SizedBox(height: 40,),
+                Form(
+                  key : signInController.formKey,
+                  child: Column(
+                    children: [
+                      TextFormFieldWidget(text: 'Your Email', keyboardType: TextInputType.emailAddress, controller: signInController.emailController,validator: (value){
+                        if(value!.isEmpty){
+                          return 'Enter email';
+                        }
+                        return null;
+                      }),
 
-                    const SizedBox(height: 20,),
+                      const SizedBox(height: 20,),
 
-                    TextFormFieldWidget(text: 'Password', keyboardType: TextInputType.visiblePassword, controller: signInController.passwordController, suffixIcon: Icons.visibility_off,suffixIconColor: AppColor.grayBE,validator: (value){
-                      if(value!.isEmpty){
-                        return 'Enter password';
-                      }
-                      return null;
-                    })
-                  ]
+                      TextFormFieldWidget(text: 'Password', keyboardType: TextInputType.visiblePassword, controller: signInController.passwordController, suffixIcon: Icons.visibility_off,suffixIconColor: AppColor.grayBE,validator: (value){
+                        if(value!.isEmpty){
+                          return 'Enter password';
+                        }
+                        return null;
+                      })
+                    ]
+                  ),
                 ),
-              ),
 
-               const SizedBox(height: 5,),
-              Align
-                (
-                alignment: Alignment.centerRight,
-                  child: InkWell(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const ForgotPasswordScreen()));
-                    },
-                      child: TextWidget(text: 'Forgot Password', fontSize: 12,))
-              ),
-              const Spacer(),
+                 const SizedBox(height: 5,),
+                Align
+                  (
+                  alignment: Alignment.centerRight,
+                    child: InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const ForgotPasswordScreen()));
+                      },
+                        child: TextWidget(text: 'Forgot Password', fontSize: 12,))
+                ),
+            SizedBox(height: 70,),
 
-              ButtonWidget(text: 'Sign in', onPressed: ()async{
-                if(signInController.formKey.currentState!.validate()){
-                  signInController.signInUser();
-                  if(signInController.login == true){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
+                ButtonWidget(text: 'Sign in', onPressed: ()async{
+                  if(signInController.formKey.currentState!.validate()){
+                    signInController.signInUser();
+                    if(signInController.login == true){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
+                    }
                   }
-                }
-                  },),
+                    },),
 
-              const SizedBox(height: 5,),
+                const SizedBox(height: 5,),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SimpleTextWidget(text: 'Dont\' have an account', fontSize: 14,),
-                  InkWell(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const SignUpScreen()));
-                    },
-                      child: TextWidget(text: ' ? Sign Up', fontSize: 14,))
-                ],
-              )
-            ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SimpleTextWidget(text: 'Dont\' have an account', fontSize: 14,),
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> const SignUpScreen()));
+                      },
+                        child: TextWidget(text: ' ? Sign Up', fontSize: 14,))
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
