@@ -1,3 +1,4 @@
+import 'package:empowered_dating/utils/constant_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -35,7 +36,7 @@ class HomeCard extends StatelessWidget {
         subtitle: Row(
           children: [
             Icon(Icons.location_on_outlined, color: Color(0xffC4C4C4),),
-            Text(subTitle,style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400, color: Color(0xff999999)),)
+            Text(subTitle,style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400, color: AppColor.gray99),)
           ],
         ),
         trailing: Icon(CupertinoIcons.heart_fill, color: Colors.grey,size: 30,),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/constant_colors.dart';
+
 class ProfileTextFieldWidget extends StatelessWidget {
    ProfileTextFieldWidget({super.key, this.filledColor,this.radius = 32,this.maxLine,required this.text,this.suffixIcon, required this.controller, required this.keyboardType, this.suffixIconColor, this.prefixIcon, this.prefixIconColor});
 
@@ -29,31 +31,31 @@ class ProfileTextFieldWidget extends StatelessWidget {
         hintStyle: const TextStyle(
             fontSize: 17,
             fontWeight: FontWeight.w400,
-            color: Color(0xffACACAC)
+            color: AppColor.grayAC
         ),
         contentPadding: const EdgeInsets.all(20),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(radius),
             borderSide: const BorderSide(
-                color: Color(0xffACACAC)
+                color: AppColor.grayAC
             )
         ),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(radius),
             borderSide: const BorderSide(
-                color: Color(0xffACACAC)
+                color: AppColor.grayAC
             )
         ),
         disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(radius),
             borderSide: const BorderSide(
-                color: Color(0xffACACAC)
+                color: AppColor.grayAC
             )
         ),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(radius),
             borderSide: const BorderSide(
-                color: Color(0xffACACAC)
+                color: AppColor.grayAC
             )
         ),
       ),

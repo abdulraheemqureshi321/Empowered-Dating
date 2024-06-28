@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:empowered_dating/view/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/constant_images.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -24,15 +26,15 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         height: double.maxFinite,
         width: double.maxFinite,
-        decoration: const BoxDecoration(
+        decoration:  const BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.fitWidth,
-            image: AssetImage('assets/splesh_screen_background.png'),
+            image: AssetImage(ConstantImages.customSpBgImg),
 
           ),
         ),
         child: const Center(
-          child: Image(image: AssetImage('assets/logo.png'), height: 232, width: 279,),
+          child: Image(image: AssetImage(ConstantImages.customSpLogo), height: 232, width: 279,),
         ),
       ),
     );

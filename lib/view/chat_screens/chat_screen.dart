@@ -1,7 +1,9 @@
+import 'package:empowered_dating/utils/constant_images.dart';
 import 'package:empowered_dating/view/chat_screens/video_call_screen.dart';
 import 'package:empowered_dating/widgets/profile_text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../utils/constant_colors.dart';
 import 'call_screen.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -23,7 +25,7 @@ class _ChatScreenState extends State<ChatScreen> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.fitWidth,
-            image: AssetImage('assets/background.png'),
+            image: AssetImage(ConstantImages.customBgImg),
           ),
         ),
         child: Column(
@@ -45,9 +47,9 @@ class _ChatScreenState extends State<ChatScreen> {
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: const Icon(
+                        child:  const Icon(
                           Icons.arrow_back_ios_new,
-                          color: Color(0xffACACAC),
+                          color: AppColor.grayAC,
                         )),
                     const SizedBox(
                       width: 10,
@@ -70,7 +72,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
-                                    color: Color(0xff5E5E5E))),
+                                    color: AppColor.gray5E)),
                             SizedBox(
                               height: 14,
                             ),
@@ -79,7 +81,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
-                                  color: Color(0xff5E5E5E)),
+                                  color: AppColor.gray5E),
                             )
                           ],
                         ),
@@ -95,7 +97,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         },
                         child: const Icon(
                           CupertinoIcons.phone,
-                          color: Color(0xffFDB813),
+                          color: AppColor.customIconColor,
                           size: 28,
                         )),
                     const SizedBox(
@@ -111,7 +113,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         },
                         child: const Icon(
                           CupertinoIcons.video_camera,
-                          color: Color(0xffFDB813),
+                          color: AppColor.customIconColor,
                           size: 32,
                         ))
                   ],
@@ -131,8 +133,8 @@ class _ChatScreenState extends State<ChatScreen> {
                       prefixIcon: CupertinoIcons.smiley,
                       suffixIcon: CupertinoIcons.camera,
                       filledColor: Colors.white,
-                      prefixIconColor: const Color(0xffACACAC),
-                      suffixIconColor: const Color(0xffACACAC),
+                      prefixIconColor: AppColor.grayAC,
+                      suffixIconColor: AppColor.grayAC,
                     ),
                   ),
                   Padding(
@@ -143,7 +145,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         height: 63,
                         width: 63,
                         decoration: const BoxDecoration(
-                            shape: BoxShape.circle, color: Color(0xff934C93)),
+                            shape: BoxShape.circle, color: AppColor.primaryColor),
                         child: const Icon(
                           Icons.send,
                           color: Colors.white,

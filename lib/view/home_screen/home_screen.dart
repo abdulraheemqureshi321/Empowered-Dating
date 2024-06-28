@@ -1,9 +1,12 @@
+import 'package:empowered_dating/utils/constant_images.dart';
 import 'package:empowered_dating/view/home_screen/widget/home_card.dart';
 import 'package:empowered_dating/view/home_screen/widget/near_you_card.dart';
 import 'package:empowered_dating/widgets/simple_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../utils/constant_colors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -46,13 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: const [
           Icon(
             CupertinoIcons.bell,
-            color: Color(0xffFDB813),
+            color: AppColor.customIconColor,
           ),
           Padding(
               padding: EdgeInsets.only(right: 10, left: 5),
               child: Icon(
                 Icons.menu,
-                color: Color(0xffFDB813),
+                color: AppColor.customIconColor,
               ))
         ],
       ),
@@ -63,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.fill,
-            image: AssetImage('assets/background.png'),
+            image: AssetImage(ConstantImages.customBgImg),
           ),
         ),
         child: Column(
@@ -78,17 +81,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     'New Matches',
-                    style: TextStyle(fontSize: 14, color: Color(0xff5E5E5E)),
+                    style: TextStyle(fontSize: 14, color:AppColor.gray5E),
                   ),
                   Spacer(),
                   Text(
                     'See All',
-                    style: TextStyle(fontSize: 12, color: Color(0xff934C93)),
+                    style: TextStyle(fontSize: 12, color: AppColor.primaryColor),
                   ),
                   Icon(
                     Icons.arrow_forward,
                     weight: 2,
-                    color: Color(0xff934C93),
+                    color: AppColor.primaryColor,
                   )
                 ],
               ),

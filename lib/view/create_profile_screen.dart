@@ -1,7 +1,9 @@
+import 'package:empowered_dating/utils/constant_images.dart';
 import 'package:empowered_dating/view/payment_screen/payment_screen.dart';
 import 'package:empowered_dating/widgets/button_widget.dart';
 import 'package:empowered_dating/widgets/simple_text.dart';
 import 'package:flutter/material.dart';
+import '../utils/constant_colors.dart';
 import '../widgets/profile_text_field.dart';
 
 
@@ -14,20 +16,19 @@ class CreateProfileScreen extends StatefulWidget {
 
 class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
+  final TextEditingController jobController = TextEditingController();
+  final TextEditingController companyController = TextEditingController();
+  final TextEditingController collegeController = TextEditingController();
+  final TextEditingController interestController = TextEditingController();
+  final TextEditingController aboutMeController = TextEditingController();
 
 
   @override
   Widget build(BuildContext context) {
 
     double screenHight = MediaQuery.of(context).size.height;
-    final TextEditingController nameController = TextEditingController();
-    final TextEditingController locationController = TextEditingController();
-    final TextEditingController jobController = TextEditingController();
-    final TextEditingController companyController = TextEditingController();
-    final TextEditingController collegeController = TextEditingController();
-    final TextEditingController interestController = TextEditingController();
-    final TextEditingController aboutMeController = TextEditingController();
-
 
     return  Scaffold(
       body: Container(
@@ -35,7 +36,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.fill,
-            image: AssetImage('assets/create_profile_background.png'),
+            image: AssetImage(ConstantImages.customBgImg),
           ),
         ),
         child: SingleChildScrollView(
@@ -67,28 +68,28 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                     Padding(
                         padding: const EdgeInsets.only(left: 20,bottom: 5,top: 10),
                         child: SimpleTextWidget(text: 'Name',fontSize: 14,)),
-                    ProfileTextFieldWidget(text: 'Enter Your Name', controller: nameController, keyboardType:TextInputType.text,suffixIconColor: const Color(0xffFDB813),suffixIcon: Icons.person,),
+                    ProfileTextFieldWidget(text: 'Enter Your Name', controller: nameController, keyboardType:TextInputType.text,suffixIconColor: AppColor.customIconColor,suffixIcon: Icons.person,),
 
 
                     Padding(
                         padding: const EdgeInsets.only(left: 20,bottom: 5, top: 10),
                         child: SimpleTextWidget(text: 'Location',fontSize: 14,)),
-                    ProfileTextFieldWidget(text: 'Enter Your Location', controller: locationController, keyboardType:TextInputType.text,suffixIconColor: const Color(0xffFDB813),suffixIcon: Icons.location_on_outlined,),
+                    ProfileTextFieldWidget(text: 'Enter Your Location', controller: locationController, keyboardType:TextInputType.text,suffixIconColor: AppColor.customIconColor,suffixIcon: Icons.location_on_outlined,),
 
                     Padding(
                         padding: const EdgeInsets.only(left: 20,bottom: 5, top: 10),
                         child: SimpleTextWidget(text: 'Job',fontSize: 14,)),
-                    ProfileTextFieldWidget(text: 'Enter Your Job Name', controller: jobController, keyboardType:TextInputType.text,suffixIconColor: const Color(0xffFDB813),suffixIcon: Icons.shopping_bag_outlined,),
+                    ProfileTextFieldWidget(text: 'Enter Your Job Name', controller: jobController, keyboardType:TextInputType.text,suffixIconColor: AppColor.customIconColor,suffixIcon: Icons.shopping_bag_outlined,),
 
                     Padding(
                         padding: const EdgeInsets.only(left: 20,bottom: 5,top: 10),
                         child: SimpleTextWidget(text: 'Company',fontSize: 14,)),
-                    ProfileTextFieldWidget(text: 'Enter Your Company Name', controller: companyController, keyboardType:TextInputType.text,suffixIconColor: const Color(0xffFDB813),suffixIcon: Icons.home_outlined,),
+                    ProfileTextFieldWidget(text: 'Enter Your Company Name', controller: companyController, keyboardType:TextInputType.text,suffixIconColor: AppColor.customIconColor,suffixIcon: Icons.home_outlined,),
 
                     Padding(
                         padding: const EdgeInsets.only(left: 20,bottom: 5, top: 10),
                         child: SimpleTextWidget(text: 'College',fontSize: 14,)),
-                    ProfileTextFieldWidget(text: 'Enter Your College Name', controller: collegeController, keyboardType:TextInputType.text,suffixIconColor: const Color(0xffFDB813),suffixIcon: Icons.school_outlined,),
+                    ProfileTextFieldWidget(text: 'Enter Your College Name', controller: collegeController, keyboardType:TextInputType.text,suffixIconColor: AppColor.customIconColor,suffixIcon: Icons.school_outlined,),
 
                     Padding(
                       padding: const EdgeInsets.all(10),
@@ -96,7 +97,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                         alignment: Alignment.center,
                           child: SimpleTextWidget(text: 'Interest',fontSize: 14,)),
                     ),
-                    ProfileTextFieldWidget(text: 'Interest', controller: interestController, keyboardType:TextInputType.text,suffixIconColor: const Color(0xff934C93),suffixIcon: Icons.add_circle,),
+                    ProfileTextFieldWidget(text: 'Interest', controller: interestController, keyboardType:TextInputType.text,suffixIconColor: AppColor.primaryColor,suffixIcon: Icons.add_circle,),
 
                     Padding(
                         padding: const EdgeInsets.only(left: 20,bottom: 5, top: 20),

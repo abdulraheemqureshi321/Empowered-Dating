@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../utils/constant_colors.dart';
+import '../utils/constant_colors.dart';
+
 class TextWidget extends StatelessWidget {
    TextWidget({super.key , required this.text, this.fontSize});
 
@@ -13,7 +16,7 @@ class TextWidget extends StatelessWidget {
       style:  TextStyle(
         fontWeight: FontWeight.w500,
         fontSize: fontSize,
-        color: const Color( 0xff934C93),
+        color:  AppColor.primaryColor,
       ),);
   }
 }

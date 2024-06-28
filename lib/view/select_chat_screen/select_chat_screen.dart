@@ -1,9 +1,11 @@
+import 'package:empowered_dating/utils/constant_images.dart';
 import 'package:empowered_dating/view/chat_screens/chat_screen.dart';
 import 'package:empowered_dating/view/select_chat_screen/widget/chat_card.dart';
 import 'package:empowered_dating/widgets/profile_text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/constant_colors.dart';
 import '../../widgets/simple_text.dart';
 
 class SelectChatScreen extends StatefulWidget {
@@ -36,7 +38,7 @@ class _SelectChatScreenState extends State<SelectChatScreen> {
               padding: EdgeInsets.only(right: 10, left: 5),
               child: Icon(
                 Icons.delete_outline,
-                color: Color(0xffFDB813),
+                color: AppColor.customIconColor,
               ))
         ],
       ),
@@ -46,7 +48,7 @@ class _SelectChatScreenState extends State<SelectChatScreen> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.fill,
-            image: AssetImage('assets/background.png'),
+            image: AssetImage(ConstantImages.customBgImg),
           ),
         ),
         child: SafeArea(
@@ -57,7 +59,7 @@ class _SelectChatScreenState extends State<SelectChatScreen> {
                 padding: const EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 20),
                 child: Container(
                   color: Colors.white,
-                    child: ProfileTextFieldWidget(text: 'Search Messages', controller: _searchController, keyboardType: TextInputType.text, prefixIcon: Icons.search_outlined, prefixIconColor: const Color(0xffACACAC),radius: 0,)),
+                    child: ProfileTextFieldWidget(text: 'Search Messages', controller: _searchController, keyboardType: TextInputType.text, prefixIcon: Icons.search_outlined, prefixIconColor: AppColor.grayAC,radius: 0,)),
               ),
               const Padding(
                 padding: EdgeInsets.only(right: 20,left: 20),
@@ -65,17 +67,17 @@ class _SelectChatScreenState extends State<SelectChatScreen> {
                   children: [
                     Text(
                       'New Matches',
-                      style: TextStyle(fontSize: 14, color: Color(0xff5E5E5E)),
+                      style: TextStyle(fontSize: 14, color: AppColor.gray5E),
                     ),
                     Spacer(),
                     Text(
                       'See All',
-                      style: TextStyle(fontSize: 12, color: Color(0xff934C93)),
+                      style: TextStyle(fontSize: 12, color: AppColor.primaryColor),
                     ),
                     Icon(
                       Icons.arrow_forward,
                       weight: 2,
-                      color: Color(0xff934C93),
+                      color: AppColor.primaryColor
                     )
                   ],
                 ),
@@ -101,7 +103,7 @@ class _SelectChatScreenState extends State<SelectChatScreen> {
               const SizedBox(height: 20,),
               const Padding(
                 padding: EdgeInsets.only(left: 20),
-                child: Text('Messages', style: TextStyle(fontSize: 14, color: Color(0xff5E5E5E)),),
+                child: Text('Messages', style: TextStyle(fontSize: 14, color: AppColor.gray5E),),
               ),
               const SizedBox(height: 20,),
               Expanded(

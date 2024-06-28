@@ -1,3 +1,4 @@
+import 'package:empowered_dating/utils/constant_images.dart';
 import 'package:empowered_dating/view/payment_screen/widget/payment_card.dart';
 import 'package:empowered_dating/widgets/button_widget.dart';
 import 'package:empowered_dating/widgets/simple_text.dart';
@@ -18,19 +19,20 @@ class PaymentScreen extends StatefulWidget {
 
 class _PaymentScreenState extends State<PaymentScreen> {
 
+  final PaymentController _controller = Get.put(PaymentController());
+
   @override
   Widget build(BuildContext context) {
-    final PaymentController _controller = Get.put(PaymentController());
 
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(left: 30,right: 30),
         height: double.maxFinite,
         width: double.maxFinite,
-        decoration: const BoxDecoration(
+        decoration:  BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.fill,
-            image: AssetImage('assets/create_profile_background.png'),
+            image: AssetImage(ConstantImages.customBgImg),
           ),
         ),
         child: Column(

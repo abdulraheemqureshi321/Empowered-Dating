@@ -1,3 +1,4 @@
+import 'package:empowered_dating/utils/constant_colors.dart';
 import 'package:empowered_dating/view/chat_screens/video_call_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,7 @@ class _CallScreenState extends State<CallScreen> {
                 width: 92,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Color(0xff934C93)
+                  color: AppColor.primaryColor
                 ),
                 child: const Icon(CupertinoIcons.phone_down, color: Colors.white,size: 42,),
               ),
@@ -76,7 +77,7 @@ class _CallScreenState extends State<CallScreen> {
                         shape: BoxShape.circle,
                         color: Colors.white
                     ),
-                    child: const Icon(CupertinoIcons.volume_up, color: Color(0xffACACAC),size: 31,),
+                    child: const Icon(CupertinoIcons.volume_up, color: AppColor.grayAC,size: 31,),
                   ),
                   InkWell(
                     onTap: (){
@@ -89,7 +90,7 @@ class _CallScreenState extends State<CallScreen> {
                           shape: BoxShape.circle,
                           color: Colors.white
                       ),
-                      child: const Icon(CupertinoIcons.video_camera, color: Color(0xffACACAC),size: 31,),
+                      child: const Icon(CupertinoIcons.video_camera, color: AppColor.grayAC,size: 31,),
                     ),
                   ),
                   Container(
@@ -99,7 +100,7 @@ class _CallScreenState extends State<CallScreen> {
                         shape: BoxShape.circle,
                         color: Colors.white
                     ),
-                    child: const Icon(CupertinoIcons.mic_off, color: Color(0xffACACAC),size: 31,),
+                    child: const Icon(CupertinoIcons.mic_off, color: AppColor.grayAC,size: 31,),
                   ),
 
                 ],

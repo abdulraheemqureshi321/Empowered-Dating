@@ -1,3 +1,4 @@
+import 'package:empowered_dating/utils/constant_images.dart';
 import 'package:empowered_dating/view/sign_in_screen.dart';
 import 'package:empowered_dating/view/verify_screen.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.fitWidth,
-            image: AssetImage('assets/background.png'),
+            image: AssetImage(ConstantImages.customBgImg),
 
           ),
         ),
@@ -35,7 +36,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           padding: const EdgeInsets.only(top: 100, left: 40,right: 40, bottom: 20),
           child: Column(
             children: [
-              const Image(image: AssetImage('assets/logo2.png'),height: 128, width: 155,),
+              const Image(image: AssetImage(ConstantImages.customLogo),height: 128, width: 155,),
 
               const SizedBox(height: 50,),
 

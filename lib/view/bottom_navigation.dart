@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controller/bottom_navigation_controller.dart';
+import '../utils/constant_colors.dart';
 
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({super.key});
@@ -36,8 +37,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
         ),
 
         bottomNavigationBar: BottomNavigationBar(
-          unselectedItemColor: const Color(0xffACACAC),
-          selectedItemColor: const Color(0xff934C93),
+          unselectedItemColor: AppColor.grayAC,
+          selectedItemColor: AppColor.primaryColor,
           onTap: controller.changeTabIndex,
           currentIndex: controller.tabIndex.value,
           showSelectedLabels: false,

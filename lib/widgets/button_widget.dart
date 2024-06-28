@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/constant_colors.dart';
+
 class ButtonWidget extends StatelessWidget {
    ButtonWidget({super.key, required this.text, required this.onPressed});
 
@@ -14,16 +16,16 @@ class ButtonWidget extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xff934C93),
+            backgroundColor: AppColor.primaryColor,
             side: const BorderSide(
                 color: Colors.black,
                 width: 1
             )
         ),
         child: Text(text,
-          style: const TextStyle(
+          style:  const TextStyle(
             fontSize: 22,
-            color: Color(0xffFFFFFF),
+            color: AppColor.white,
             fontWeight: FontWeight.w500,
           ),
         ),

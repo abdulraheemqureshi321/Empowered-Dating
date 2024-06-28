@@ -1,7 +1,9 @@
+import 'package:empowered_dating/utils/constant_images.dart';
 import 'package:empowered_dating/view/sign_in_screen.dart';
 import 'package:empowered_dating/view/verify_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/constant_colors.dart';
 import '../widgets/button_widget.dart';
 import '../widgets/simple_text.dart';
 import '../widgets/text_field_widget.dart';
@@ -29,7 +31,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.fitWidth,
-            image: AssetImage('assets/background.png'),
+            image: AssetImage(ConstantImages.customBgImg),
 
           ),
         ),
@@ -37,7 +39,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
           padding: const EdgeInsets.only(top: 100, left: 40,right: 40, bottom: 20),
           child: Column(
             children: [
-              const Image(image: AssetImage('assets/logo2.png'),height: 128, width: 155,),
+              const Image(image: AssetImage(ConstantImages.customLogo),height: 128, width: 155,),
 
               const SizedBox(height: 50,),
 
@@ -47,11 +49,11 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
 
               const SizedBox(height: 20,),
 
-              TextFormFieldWidget(text: 'New Password', keyboardType: TextInputType.emailAddress, controller: _passwordController,suffixIcon: Icons.visibility_off,suffixIconColor: const Color(0xffACB6BE),),
+              TextFormFieldWidget(text: 'New Password', keyboardType: TextInputType.emailAddress, controller: _passwordController,suffixIcon: Icons.visibility_off,suffixIconColor: AppColor.grayBE,),
 
               const SizedBox(height: 20,),
 
-              TextFormFieldWidget(text: 'Confirm Your Password', keyboardType: TextInputType.emailAddress, controller: _confirmController,suffixIcon: Icons.visibility_off,suffixIconColor: const Color(0xffACB6BE),),
+              TextFormFieldWidget(text: 'Confirm Your Password', keyboardType: TextInputType.emailAddress, controller: _confirmController,suffixIcon: Icons.visibility_off,suffixIconColor: AppColor.grayBE,),
 
               const SizedBox(height: 5,),
 
