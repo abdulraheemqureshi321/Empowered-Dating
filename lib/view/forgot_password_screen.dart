@@ -68,7 +68,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     SimpleTextWidget(text: 'Back to', fontSize: 14,),
                     InkWell(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const SignIpScreen()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const SignInScreen()));
                         },
                         child: TextWidget(text: ' Sign in', fontSize: 14,))
                   ],

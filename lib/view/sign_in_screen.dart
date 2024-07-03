@@ -12,14 +12,14 @@ import '../widgets/simple_text.dart';
 import '../widgets/text_field_widget.dart';
 import '../widgets/text_widget.dart';
 
-class SignIpScreen extends StatefulWidget {
-  const SignIpScreen({super.key});
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
 
   @override
-  State<SignIpScreen> createState() => _SignIpScreenState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _SignIpScreenState extends State<SignIpScreen> {
+class _SignInScreenState extends State<SignInScreen> {
 
   final SignInController signInController = Get.put(SignInController());
 
@@ -96,9 +96,6 @@ class _SignIpScreenState extends State<SignIpScreen> {
                 ButtonWidget(text: 'Sign in', onPressed: ()async{
                   if(signInController.formKey.currentState!.validate()){
                     signInController.signInUser();
-                    if(signInController.login == true){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
-                    }
                   }
                     },),
 

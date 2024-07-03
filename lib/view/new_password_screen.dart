@@ -61,7 +61,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                 alignment: Alignment.centerRight,
                 child: InkWell(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const SignIpScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const SignInScreen()));
                     },
                     child: TextWidget(text: 'Forgot Password', fontSize: 12,)),
               ),

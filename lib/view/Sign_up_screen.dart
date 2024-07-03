@@ -98,7 +98,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   SimpleTextWidget(text: 'Already have an account', fontSize: 14,),
                   InkWell(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> const SignIpScreen()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> const SignInScreen()));
                       },
                       child: TextWidget(text: ' ? Sign In', fontSize: 14,))
                 ],

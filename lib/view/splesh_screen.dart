@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:empowered_dating/controller/splesh_screen_services.dart';
 import 'package:empowered_dating/view/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,12 +14,12 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  SpleshServices spleshServices = SpleshServices();
+
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const SignIpScreen()));
-    });
+    spleshServices.isLogin(context);
   }
   @override
   Widget build(BuildContext context) {

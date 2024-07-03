@@ -8,7 +8,6 @@ import '../view/verify_screen.dart';
 class ForgotPasswordController extends GetxController{
 
   final auth = FirebaseAuth.instance;
-  late final BuildContext context;
 
   forgotPassword(String email){
     auth.sendPasswordResetEmail(email: email).then((value) {

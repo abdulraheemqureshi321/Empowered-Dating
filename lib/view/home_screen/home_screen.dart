@@ -1,3 +1,9 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:empowered_dating/controller/create_profile_controller.dart';
+import 'package:empowered_dating/controller/home_controller.dart';
+import 'package:empowered_dating/models/user_model.dart';
 import 'package:empowered_dating/utils/constant_images.dart';
 import 'package:empowered_dating/view/home_screen/widget/home_card.dart';
 import 'package:empowered_dating/view/home_screen/widget/near_you_card.dart';
@@ -33,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String> location = ['Sekarwangi, Cibadak','Sekarwangi, Cibadak'];
   List<String> profile = ['assets/boy.png','assets/girl.png'];
 
+  final HomeScreenController homeController = HomeScreenController();
 
 
   @override
@@ -102,18 +109,25 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 100,
               width: double.infinity,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: images.length,
-                  itemBuilder: (context , index){
-                return Padding(
-                  padding: const EdgeInsets.only(right: 5,left: 5),
-                  child: CircleAvatar(
-                    radius: 40,
-                    backgroundImage: AssetImage(images[index]),
-                  ),
-                );
-              }),
+              child: StreamBuilder<List <UserModel>>(
+                stream: homeController.getUsersStream(),
+                builder: (context , snapshot){
+                  List<UserModel> users = snapshot.data!;
+                  return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: users.length,
+                      itemBuilder: (context , index){
+                        UserModel user = users[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 5,left: 5),
+                          child: CircleAvatar(
+                            radius: 40,
+                            backgroundImage: NetworkImage(user.profileImageUrl),
+                          ),
+                        );
+                      });
+                },
+              ),
             ),
 
             const Padding(
@@ -129,12 +143,19 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 210,
               width: double.infinity,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: titles.length,
-                  itemBuilder: (context ,index){
-                return NearYouCard(imageUri: images2[index], distance: distance[index], title: titles[index], subTitle: subTitles[index]);
-              }),
+              child: StreamBuilder<List <UserModel>>(
+                stream: homeController.getUsersStream(),
+                builder: (context , snapshot){
+                  List<UserModel> users = snapshot.data!;
+                  return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: users.length,
+                      itemBuilder: (context ,index){
+                        UserModel user = users[index];
+                        return NearYouCard(imageUri: user.profileImageUrl, distance: '0.5 km', title: user.name, subTitle: user.job);
+                      });
+                },
+              ),
             ),
             const Padding(
               padding: EdgeInsets.only(top: 20, bottom: 20,left: 20,right: 20),
@@ -159,15 +180,23 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: name.length,
-                  itemBuilder: (context , index){
-               return Padding(
-                  padding: const EdgeInsets.only(bottom: 10,right: 30,left: 20),
-                  child: HomeCard(title: name[index], subTitle: location[index], imageUri: profile[index]),
-                );
+              child: StreamBuilder<List <UserModel>>(
+                stream: homeController.getUsersStream(),
+                builder: (context , snapshot){
+                  List<UserModel> users = snapshot.data!;
+                  return ListView.builder(
+                    scrollDirection: Axis.vertical,
+                      itemCount: users.length,
+                      itemBuilder: (context , index){
+                        UserModel user = users[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 10,right: 30,left: 20),
+                          child: HomeCard(title: user.name, subTitle: user.location, imageUri: user.profileImageUrl),
+                        );
 
-              }),
+                      });
+                },
+              ),
             )
           ],
         ),

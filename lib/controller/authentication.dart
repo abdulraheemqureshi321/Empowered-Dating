@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:empowered_dating/utils/custom_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 class Authentication {
 
@@ -14,6 +15,7 @@ class Authentication {
       {required String email, required String password, required String name}) async {
     String res = " Some error occurred ";
     try {
+
       // for register user in firebase auth with email and password
       UserCredential credential = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -38,16 +40,20 @@ class Authentication {
       {required String email, required String password}) async {
     String res = " Some error occurred ";
     try {
+
       // for register user in firebase auth with email and password
      await _auth.signInWithEmailAndPassword(email: email, password: password);
-
+     CustomToast().toastMessage('Login Successful');
       res = "success";
     }
     catch (e) {
-      print(e.toString());
+      CustomToast().toastMessage('$e');
     }
     return res;
   }
+
+  //for forgot password
+
 
 }
 

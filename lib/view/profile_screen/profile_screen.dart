@@ -1,9 +1,12 @@
+import 'package:empowered_dating/controller/create_profile_controller.dart';
 import 'package:empowered_dating/utils/constant_images.dart';
 import 'package:empowered_dating/view/profile_screen/widget/row_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
+import '../../controller/profile_controller.dart';
 import '../../utils/constant_colors.dart';
 import '../../widgets/simple_text.dart';
 
@@ -17,6 +20,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
 
   List<String> images =['assets/1.png','assets/2.png','assets/3.png','assets/4.png','assets/5.png','assets/6.png','assets/1.png','assets/2.png','assets/3.png','assets/4.png','assets/5.png','assets/6.png'];
+
+  final ProfileScreenController profileScreenController = Get.put(ProfileScreenController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,12 +58,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 children: [
                   const SizedBox(height: 20,),
-                  const CircleAvatar(
-                    backgroundImage: AssetImage('assets/2.png'),
+                   CircleAvatar(
+                    backgroundImage: NetworkImage(profileScreenController.currentUser.value.profileImageUrl),
                     radius: 60,
                   ),
                   const SizedBox(height: 10,),
-                  const Text('Brian Immanual, 24',style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,color: AppColor.gray5E),),
+                   Text(profileScreenController.currentUser.value.name,style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,color: AppColor.gray5E),),
                   const SizedBox(height: 10,),
                   Container(
                     height: 33,
@@ -99,7 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     alignment: Alignment.topLeft,
                       child: Text('About Me', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColor.gray5E),)),
                   const SizedBox(height: 10,),
-                  const Text('I\'m here when you need a sunny day,something good.We can sing together on the beach and burn bonfires atnight with the moonlight. See you under the night sky !', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: AppColor.grayAC),),
+                  Text(profileScreenController.currentUser.value.aboutMe, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: AppColor.grayAC),),
                   const SizedBox(height: 20,),
                   const Row(
                     children: [

@@ -18,7 +18,7 @@ class NearYouCard extends StatelessWidget {
         decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fitWidth,
-              image: AssetImage(imageUri),
+              image: NetworkImage(imageUri),
             ),
             borderRadius: BorderRadius.circular(10)),
         child: Row(
