@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../utils/constant_colors.dart';
 
 class ChatCard extends StatelessWidget {
-   ChatCard({super.key, required this.imageUri,required this.title,required this.subTitle});
+   ChatCard({super.key,required this.imageUri,required this.title,required this.subTitle});
   String title ;
   String subTitle;
   String imageUri;
@@ -26,7 +26,7 @@ class ChatCard extends StatelessWidget {
         contentPadding: EdgeInsets.zero,
         leading: CircleAvatar(
           radius: 50,
-          backgroundImage:  AssetImage(imageUri),
+          backgroundImage:  NetworkImage(imageUri),
         ),
         title: Text(title,style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w500),),
         subtitle: Padding(

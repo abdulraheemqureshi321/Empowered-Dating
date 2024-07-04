@@ -1,14 +1,12 @@
-import 'dart:async';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:empowered_dating/controller/create_profile_controller.dart';
 import 'package:empowered_dating/controller/home_controller.dart';
+import 'package:empowered_dating/models/chat_room_model.dart';
 import 'package:empowered_dating/models/user_model.dart';
 import 'package:empowered_dating/utils/constant_images.dart';
 import 'package:empowered_dating/view/chat_screens/chat_screen.dart';
 import 'package:empowered_dating/view/home_screen/widget/home_card.dart';
 import 'package:empowered_dating/view/home_screen/widget/near_you_card.dart';
 import 'package:empowered_dating/widgets/simple_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,24 +21,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<String> images = [
-    'assets/1.png',
-    'assets/2.png',
-    'assets/3.png',
-    'assets/4.png',
-    'assets/5.png',
-    'assets/6.png'
-  ];
-  List<String> images2 = ['assets/container1.png', 'assets/container2.png'];
-  List<String> titles = ['Sahara Ardia Fadia', 'Nathalia Angeline'];
-  List<String> subTitles = ['Nurse', 'Dancer, Friendly'];
-  List<String> distance = ['0.5 km', '0.5 km'];
 
-  List<String> name = ['Natasya Valentina','Natasya Valentina'];
-  List<String> location = ['Sekarwangi, Cibadak','Sekarwangi, Cibadak'];
-  List<String> profile = ['assets/boy.png','assets/girl.png'];
 
   final HomeScreenController homeController = Get.put(HomeScreenController());
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
 
 
   @override
@@ -113,20 +98,41 @@ class _HomeScreenState extends State<HomeScreen> {
               child: StreamBuilder<List <UserModel>>(
                 stream: homeController.getUsersStream(),
                 builder: (context , snapshot){
-                  List<UserModel> users = snapshot.data!;
-                  return ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: users.length,
-                      itemBuilder: (context , index){
-                        UserModel user = users[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(right: 5,left: 5),
-                          child: CircleAvatar(
-                            radius: 40,
-                            backgroundImage: NetworkImage(user.profileImageUrl),
-                          ),
+                  if(snapshot.connectionState == ConnectionState.active){
+                    if(snapshot.hasData){
+                      List<UserModel> users = snapshot.data!;
+                      return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: users.length,
+                          itemBuilder: (context , index){
+                            UserModel user = users[index];
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 5,left: 5),
+                              child: CircleAvatar(
+                                radius: 40,
+                                backgroundImage: NetworkImage(user.profileImageUrl),
+                              ),
+                            );
+                          });
+                    }
+                    else if(snapshot.hasError){
+                      return Center(
+                        child: Text(snapshot.error.toString()),
+                      );
+                    }
+                    else
+                      {
+                        return Center(
+                          child: Text("No Chats "),
                         );
-                      });
+                      }
+                  }
+                  else{
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+
                 },
               ),
             ),
@@ -147,14 +153,34 @@ class _HomeScreenState extends State<HomeScreen> {
               child: StreamBuilder<List <UserModel>>(
                 stream: homeController.getUsersStream(),
                 builder: (context , snapshot){
-                  List<UserModel> users = snapshot.data!;
-                  return ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: users.length,
-                      itemBuilder: (context ,index){
-                        UserModel user = users[index];
-                        return NearYouCard(imageUri: user.profileImageUrl, distance: '0.5 km', title: user.name, subTitle: user.job);
-                      });
+                  if(snapshot.connectionState == ConnectionState.active){
+                  if(snapshot.hasData){
+                    List<UserModel> users = snapshot.data!;
+                    return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: users.length,
+                        itemBuilder: (context ,index){
+                          UserModel user = users[index];
+                          return NearYouCard(imageUri: user.profileImageUrl, distance: '0.5 km', title: user.name, subTitle: user.job);
+                        });
+                  }
+                  else if(snapshot.hasError){
+                    return Center(
+                      child: Text(snapshot.error.toString()),
+                    );
+                  }
+                  else{
+                    return Center(
+                      child: Text("No Chats "),
+                    );
+                  }
+                  }
+                  else{
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+
                 },
               ),
             ),
@@ -184,23 +210,57 @@ class _HomeScreenState extends State<HomeScreen> {
               child: StreamBuilder<List <UserModel>>(
                 stream: homeController.getUsersStream(),
                 builder: (context , snapshot){
-                  List<UserModel> users = snapshot.data!;
-                  return ListView.builder(
-                    scrollDirection: Axis.vertical,
-                      itemCount: users.length,
-                      itemBuilder: (context , index){
-                        UserModel user = users[index];
-                        return Padding(
-                          padding:  EdgeInsets.only(bottom: 10,right: 30,left: 20),
-                          child: InkWell(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatScreen()));
-                            },
-                            child: HomeCard(title: user.name, subTitle: user.location, imageUri: user.profileImageUrl),
-                          ),
-                        );
+                  if(snapshot.connectionState == ConnectionState.active)
+                    {
+                      if(snapshot.hasData){
+                        List<UserModel> users = snapshot.data!;
+                        return ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: users.length,
+                            itemBuilder: (context , index){
+                              UserModel user = users[index];
+                              return Padding(
+                                padding:  EdgeInsets.only(bottom: 10,right: 30,left: 20),
+                                child: InkWell(
+                                  onTap: ()async{
+                                    ChatRoomModel? chatroomModel =  await homeController.getChatroomModel(users[index]);
+                                    if(chatroomModel != null){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatScreen(
+                                        targetUser: users[index],
+                                        userModel: homeController.currentUser.value,
+                                        chatroom: chatroomModel,
+                                        firebaseUser: auth.currentUser,
+                                      )
+                                      )
+                                      );
 
-                      });
+                                    }
+                                  },
+                                  child: HomeCard(title: user.name, subTitle: user.location, imageUri: user.profileImageUrl),
+                                ),
+                              );
+
+                            });
+                      }
+                      else if(snapshot.hasError){
+                        return Center(
+                          child: Text(snapshot.error.toString()),
+                        );
+                      }
+                      else
+                        {
+                          return Center(
+                            child: Text("No Chats "),
+                          );
+                        }
+                    }
+                  else
+                    {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+
                 },
               ),
             )

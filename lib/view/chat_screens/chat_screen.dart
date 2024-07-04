@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:empowered_dating/models/chat_room_model.dart';
+import 'package:empowered_dating/models/message_model.dart';
 import 'package:empowered_dating/models/user_model.dart';
 import 'package:empowered_dating/utils/constant_images.dart';
 import 'package:empowered_dating/view/chat_screens/video_call_screen.dart';
@@ -6,20 +8,52 @@ import 'package:empowered_dating/widgets/profile_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../main.dart';
 import '../../utils/constant_colors.dart';
 import 'call_screen.dart';
 
 class ChatScreen extends StatefulWidget {
-
+  final UserModel targetUser;
+  final ChatRoomModel chatroom;
+  final UserModel userModel;
+  final User? firebaseUser;
   const ChatScreen({
     super.key,
+    required this.targetUser,
+    required this.chatroom,
+    required this.userModel,
+    required this.firebaseUser
   });
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final TextEditingController controller = TextEditingController();
+  final TextEditingController messageController = TextEditingController();
+
+  void sendMessage()async{
+    String msg = messageController.text.trim();
+    messageController.clear();
+    if(msg != ""){
+      //send message
+
+      MessageModel newMessageb= MessageModel(
+        messageid: uuid.v1(),
+        sender: widget.userModel.uid,
+        createdon: DateTime.now(),
+        text: msg,
+        seen: false,
+      );
+
+      FirebaseFirestore.instance.collection("chatrooms").doc(
+          widget.chatroom.chatroomid).collection("messages").doc(
+          newMessageb.messageid).set(newMessageb.toMap());
+
+      widget.chatroom.lastMessage = msg;
+      FirebaseFirestore.instance.collection("chatrooms").doc(widget.chatroom.chatroomid).set(widget.chatroom.toMap());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,29 +92,29 @@ class _ChatScreenState extends State<ChatScreen> {
                     const SizedBox(
                       width: 10,
                     ),
-                    const CircleAvatar(
+                    CircleAvatar(
                       radius: 30,
-                      backgroundImage: AssetImage('assets/1.png'),
+                      backgroundImage: NetworkImage(widget.targetUser.profileImageUrl),
                     ),
                     const SizedBox(
                       width: 15,
                     ),
-                    const SafeArea(
+                     SafeArea(
                       child: Padding(
-                        padding: EdgeInsets.only(bottom: 15),
+                        padding: const EdgeInsets.only(bottom: 15),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Lorem lpsum',
-                                style: TextStyle(
+                            Text(widget.targetUser.name.toString(),
+                                style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
                                     color: AppColor.gray5E)),
-                            SizedBox(
+                            const SizedBox(
                               height: 14,
                             ),
-                            Text(
+                            const Text(
                               'Online',
                               style: TextStyle(
                                   fontSize: 12,
@@ -126,7 +160,63 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
             Expanded(
                 child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10
+                  ),
+                  child: StreamBuilder(
+                    stream:  FirebaseFirestore.instance.collection
+                      ("chatrooms").doc(widget.chatroom.chatroomid).collection
+                      ("messages").orderBy("createdon", descending: true).snapshots(),
+                    builder: (context , snapshot){
+                      if(snapshot.connectionState == ConnectionState.active){
+                        if(snapshot.hasData){
+                          QuerySnapshot dataSnapshot = snapshot.data as QuerySnapshot;
 
+                          return ListView.builder(
+                            reverse: true,
+                              itemCount: dataSnapshot.docs.length,
+                            itemBuilder: (context , index){
+                                MessageModel currentMessage = MessageModel.fromMap(dataSnapshot.docs[index].data() as Map<String , dynamic>);
+                                return Row(
+                                  mainAxisAlignment: (currentMessage.sender == widget.userModel.uid) ? MainAxisAlignment.end : MainAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.symmetric(vertical: 2),
+                                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                                      decoration: BoxDecoration(
+                                        color: (currentMessage.sender == widget.userModel.uid)? AppColor.primaryColor : Colors.grey,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Text(currentMessage.text.toString(), style: TextStyle(
+                                        color: Colors.white
+                                      ),)
+                                  ),
+                                  ],
+                                );
+                            },
+                          );
+                        }
+                        else if(snapshot.hasError)
+                          {
+                            return Center(
+                              child: Text("an error occured!"),
+                            );
+                          }
+                        else
+                          {
+                            return Center(
+                              child: Text("say hi to your  new friend"),
+                            );
+                          }
+                      }
+                      else
+                        {
+                          return const Center(
+                            child: const CircularProgressIndicator(),
+                          );
+                        }
+                    },
+                  ),
                 )
             ),
             Padding(
@@ -136,19 +226,22 @@ class _ChatScreenState extends State<ChatScreen> {
                   Expanded(
                     child: ProfileTextFieldWidget(
                       text: 'write a message',
-                      controller: controller,
+                      controller: messageController,
                       keyboardType: TextInputType.text,
                       prefixIcon: CupertinoIcons.smiley,
                       suffixIcon: CupertinoIcons.camera,
                       filledColor: Colors.white,
                       prefixIconColor: AppColor.grayAC,
                       suffixIconColor: AppColor.grayAC,
+                      maxLine: null,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 5),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        sendMessage();
+                      },
                       child: Container(
                         height: 63,
                         width: 63,
