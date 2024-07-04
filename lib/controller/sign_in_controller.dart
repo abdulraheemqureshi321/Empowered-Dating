@@ -18,7 +18,7 @@ class SignInController extends GetxController{
     String res = await Authentication().signInUser(email: emailController.text, password: passwordController.text);
 
     if(res == "success"){
-      Get.to(const CreateProfileScreen());
+      Get.to(const BottomNavigation());
     }
   }
 }

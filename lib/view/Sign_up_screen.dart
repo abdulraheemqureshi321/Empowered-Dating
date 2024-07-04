@@ -38,72 +38,75 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         child:  Padding(
           padding: const EdgeInsets.only(top: 100, left: 40,right: 40, bottom: 20),
-          child: Column(
-            children: [
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
 
-              const Image(image: AssetImage(ConstantImages.customLogo),height: 128, width: 155,),
+                const Image(image: AssetImage(ConstantImages.customLogo),height: 128, width: 155,),
 
-              const SizedBox(height: 50,),
+                const SizedBox(height: 50,),
 
-              TextWidget(text: 'Sign Up', fontSize: 45,),
+                TextWidget(text: 'Sign Up', fontSize: 45,),
 
-              SimpleTextWidget(text: 'Please fill the details and create account'),
+                SimpleTextWidget(text: 'Please fill the details and create account'),
 
-              const SizedBox(height: 40,),
-              Form(
-                key: signUpColtroller.formKey,
-                  child: Column(
-                children: [
-                  TextFormFieldWidget(text: 'Your Name', keyboardType: TextInputType.emailAddress, controller: signUpColtroller.nameController,validator: (value){
-                    if(value!.isEmpty){
-                      return 'Enter Name';
-                    }
-                    return null;
-                  },),
+                const SizedBox(height: 40,),
+                Form(
+                  key: signUpColtroller.formKey,
+                    child: Column(
+                  children: [
+                    TextFormFieldWidget(text: 'Your Name', keyboardType: TextInputType.emailAddress, controller: signUpColtroller.nameController,validator: (value){
+                      if(value!.isEmpty){
+                        return 'Enter Name';
+                      }
+                      return null;
+                    },),
 
-                  const SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
 
-                  TextFormFieldWidget(text: 'Your Email', keyboardType: TextInputType.emailAddress, controller: signUpColtroller.emailController,validator: (value){
-                    if(value!.isEmpty){
-                      return 'Enter Email';
-                    }
-                    return null;
-                  }),
+                    TextFormFieldWidget(text: 'Your Email', keyboardType: TextInputType.emailAddress, controller: signUpColtroller.emailController,validator: (value){
+                      if(value!.isEmpty){
+                        return 'Enter Email';
+                      }
+                      return null;
+                    }),
 
-                  const SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
 
-                  TextFormFieldWidget(text: 'Password', keyboardType: TextInputType.visiblePassword, controller: signUpColtroller.passwordController,suffixIcon: Icons.visibility_off,suffixIconColor: AppColor.grayBE,validator: (value){
-                    if(value!.isEmpty){
-                      return 'Enter Password';
-                    }
-                    return null;
-                  }),
+                    TextFormFieldWidget(text: 'Password', keyboardType: TextInputType.visiblePassword, controller: signUpColtroller.passwordController,suffixIcon: Icons.visibility_off,suffixIconColor: AppColor.grayBE,validator: (value){
+                      if(value!.isEmpty){
+                        return 'Enter Password';
+                      }
+                      return null;
+                    }),
 
-                ],
-              )),
+                  ],
+                )),
 
-              const Spacer(),
+                SizedBox(height: 70,),
 
-              ButtonWidget(text: 'Sign up', onPressed: ()async{
-                if(signUpColtroller.formKey.currentState!.validate()){
-                  signUpColtroller.signUpUser();
-                }
-              },),
+                ButtonWidget(text: 'Sign up', onPressed: ()async{
+                  if(signUpColtroller.formKey.currentState!.validate()){
+                    signUpColtroller.signUpUser();
+                  }
+                },),
 
-              const SizedBox(height: 5,),
+                const SizedBox(height: 5,),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SimpleTextWidget(text: 'Already have an account', fontSize: 14,),
-                  InkWell(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> const SignInScreen()));
-                      },
-                      child: TextWidget(text: ' ? Sign In', fontSize: 14,))
-                ],
-              )
-            ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SimpleTextWidget(text: 'Already have an account', fontSize: 14,),
+                    InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const SignInScreen()));
+                        },
+                        child: TextWidget(text: ' ? Sign In', fontSize: 14,))
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

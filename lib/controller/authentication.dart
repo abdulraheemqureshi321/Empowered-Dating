@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:empowered_dating/models/user_model.dart';
 import 'package:empowered_dating/utils/custom_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 class Authentication {
@@ -26,10 +27,11 @@ class Authentication {
         'email': email,
         'uid': credential.user!.uid,
       });
+      CustomToast().toastMessage('Account registered Successful');
       res = "success";
     }
     catch (e) {
-      print(e.toString());
+      CustomToast().toastMessage('registration failed');
     }
     return res;
   }
@@ -47,7 +49,7 @@ class Authentication {
       res = "success";
     }
     catch (e) {
-      CustomToast().toastMessage('$e');
+      CustomToast().toastMessage('Entered wrong data');
     }
     return res;
   }

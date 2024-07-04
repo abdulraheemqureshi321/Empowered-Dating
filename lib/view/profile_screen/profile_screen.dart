@@ -58,12 +58,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 children: [
                   const SizedBox(height: 20,),
-                   CircleAvatar(
-                    backgroundImage: NetworkImage(profileScreenController.currentUser.value.profileImageUrl),
-                    radius: 60,
-                  ),
+                   Obx((){
+                     return CircleAvatar(
+                       backgroundImage: NetworkImage(profileScreenController.currentUser.value.profileImageUrl),
+                       radius: 60,
+                     );
+                   }),
                   const SizedBox(height: 10,),
-                   Text(profileScreenController.currentUser.value.name,style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,color: AppColor.gray5E),),
+                  Obx((){
+                   return Text(profileScreenController.currentUser.value.name,style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,color: AppColor.gray5E),);
+                  }),
                   const SizedBox(height: 10,),
                   Container(
                     height: 33,
@@ -104,7 +108,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     alignment: Alignment.topLeft,
                       child: Text('About Me', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColor.gray5E),)),
                   const SizedBox(height: 10,),
-                  Text(profileScreenController.currentUser.value.aboutMe, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: AppColor.grayAC),),
+                  Obx((){
+                   return Text(profileScreenController.currentUser.value.aboutMe, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: AppColor.grayAC),);
+                  }),
                   const SizedBox(height: 20,),
                   const Row(
                     children: [

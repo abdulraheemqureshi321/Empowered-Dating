@@ -1,12 +1,16 @@
+import 'package:empowered_dating/models/chat_room_model.dart';
+import 'package:empowered_dating/models/user_model.dart';
 import 'package:empowered_dating/utils/constant_images.dart';
 import 'package:empowered_dating/view/chat_screens/video_call_screen.dart';
 import 'package:empowered_dating/widgets/profile_text_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../utils/constant_colors.dart';
 import 'call_screen.dart';
 
 class ChatScreen extends StatefulWidget {
+
   const ChatScreen({
     super.key,
   });
@@ -120,7 +124,11 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
               ),
             ),
-            const Spacer(),
+            Expanded(
+                child: Container(
+
+                )
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 10,right: 10,bottom: 10),
               child: Row(

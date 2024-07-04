@@ -110,14 +110,9 @@ class _SelectChatScreenState extends State<SelectChatScreen> {
                   child: ListView.builder(
                     itemCount: titles.length,
                       itemBuilder: (context , index){
-                    return InkWell(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatScreen()));
-                      },
-                      child: Padding(
-                          padding: const EdgeInsets.only( bottom: 10),
-                          child: ChatCard(imageUri: images[index], title: titles[index], subTitle: subTitle[index])),
-                    );
+                    return Padding(
+                        padding: const EdgeInsets.only( bottom: 10),
+                        child: ChatCard(imageUri: images[index], title: titles[index], subTitle: subTitle[index]));
                   }),
               )
 

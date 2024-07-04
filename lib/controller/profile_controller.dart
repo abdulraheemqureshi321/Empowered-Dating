@@ -21,7 +21,8 @@ class ProfileScreenController extends GetxController{
       location: '',
       profileImageUrl: '',
       job: '',
-      aboutMe: ''
+      aboutMe: '',
+    interest: ''
   ).obs;
 
   void fetchCurrentUser()async{

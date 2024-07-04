@@ -5,6 +5,7 @@ import 'package:empowered_dating/controller/create_profile_controller.dart';
 import 'package:empowered_dating/controller/home_controller.dart';
 import 'package:empowered_dating/models/user_model.dart';
 import 'package:empowered_dating/utils/constant_images.dart';
+import 'package:empowered_dating/view/chat_screens/chat_screen.dart';
 import 'package:empowered_dating/view/home_screen/widget/home_card.dart';
 import 'package:empowered_dating/view/home_screen/widget/near_you_card.dart';
 import 'package:empowered_dating/widgets/simple_text.dart';
@@ -39,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String> location = ['Sekarwangi, Cibadak','Sekarwangi, Cibadak'];
   List<String> profile = ['assets/boy.png','assets/girl.png'];
 
-  final HomeScreenController homeController = HomeScreenController();
+  final HomeScreenController homeController = Get.put(HomeScreenController());
 
 
   @override
@@ -190,8 +191,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: (context , index){
                         UserModel user = users[index];
                         return Padding(
-                          padding: const EdgeInsets.only(bottom: 10,right: 30,left: 20),
-                          child: HomeCard(title: user.name, subTitle: user.location, imageUri: user.profileImageUrl),
+                          padding:  EdgeInsets.only(bottom: 10,right: 30,left: 20),
+                          child: InkWell(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatScreen()));
+                            },
+                            child: HomeCard(title: user.name, subTitle: user.location, imageUri: user.profileImageUrl),
+                          ),
                         );
 
                       });

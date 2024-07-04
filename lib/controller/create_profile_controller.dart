@@ -44,6 +44,9 @@ class ProfileController extends GetxController {
     } catch (e) {
       Get.snackbar("Profile Creation Failed", e.toString());
     }
+
+
+
   }
 
 
