@@ -23,6 +23,10 @@ class HomeScreenController extends GetxController{
     });
   }
 
+  User? getCurrentUser() {
+    return auth.currentUser;
+  }
+
 
 
   @override

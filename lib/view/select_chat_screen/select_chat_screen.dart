@@ -137,9 +137,10 @@ class _SelectChatScreenState extends State<SelectChatScreen> {
                                   if(userData.connectionState == ConnectionState.done){
                                     if(userData.data != null)
                                       {
+
                                         UserModel targetUser = userData.data as UserModel;
                                         return Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                                          padding:  EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                                           child: InkWell(
                                             onTap: (){
                                               Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatScreen(
@@ -151,8 +152,10 @@ class _SelectChatScreenState extends State<SelectChatScreen> {
                                             },
                                               child: ChatCard(imageUri: targetUser.profileImageUrl, title: targetUser.name, subTitle: chatRoomModel.lastMessage.toString())),
                                         );
+
                                       }
-                                    else{
+                                    else
+                                    {
 
                                       return Container();
                                     }

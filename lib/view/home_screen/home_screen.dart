@@ -24,13 +24,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
   final HomeScreenController homeController = Get.put(HomeScreenController());
-  final FirebaseAuth auth = FirebaseAuth.instance;
 
 
 
   @override
   Widget build(BuildContext context) {
+
+    User? currentUser = homeController.getCurrentUser();
+
     return Scaffold(
+
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -101,6 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   if(snapshot.connectionState == ConnectionState.active){
                     if(snapshot.hasData){
                       List<UserModel> users = snapshot.data!;
+                      users.removeWhere((user) => user.uid == currentUser?.uid);
                       return ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: users.length,
@@ -156,6 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   if(snapshot.connectionState == ConnectionState.active){
                   if(snapshot.hasData){
                     List<UserModel> users = snapshot.data!;
+                    users.removeWhere((user) => user.uid == currentUser?.uid);
                     return ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: users.length,
@@ -214,6 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     {
                       if(snapshot.hasData){
                         List<UserModel> users = snapshot.data!;
+                        users.removeWhere((user) => user.uid == currentUser?.uid);
                         return ListView.builder(
                             scrollDirection: Axis.vertical,
                             itemCount: users.length,
@@ -223,13 +229,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                 padding:  EdgeInsets.only(bottom: 10,right: 30,left: 20),
                                 child: InkWell(
                                   onTap: ()async{
+
                                     ChatRoomModel? chatroomModel =  await homeController.getChatroomModel(users[index]);
                                     if(chatroomModel != null){
                                       Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatScreen(
                                         targetUser: users[index],
                                         userModel: homeController.currentUser.value,
                                         chatroom: chatroomModel,
-                                        firebaseUser: auth.currentUser,
+                                        firebaseUser: currentUser,
                                       )
                                       )
                                       );
