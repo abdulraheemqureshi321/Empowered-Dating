@@ -1,6 +1,9 @@
+import 'package:empowered_dating/controller/authentication.dart';
 import 'package:empowered_dating/controller/create_profile_controller.dart';
 import 'package:empowered_dating/utils/constant_images.dart';
 import 'package:empowered_dating/view/profile_screen/widget/row_widget.dart';
+import 'package:empowered_dating/view/sign_in_screen.dart';
+import 'package:empowered_dating/view/update_profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -22,6 +25,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   List<String> images =['assets/1.png','assets/2.png','assets/3.png','assets/4.png','assets/5.png','assets/6.png','assets/1.png','assets/2.png','assets/3.png','assets/4.png','assets/5.png','assets/6.png'];
 
   final ProfileScreenController profileScreenController = Get.put(ProfileScreenController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,13 +37,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
             fontSize: 16,
           ),
           centerTitle: true,
-          actions: const [
+          actions:  [
+
             Padding(
                 padding: EdgeInsets.only(right: 10, left: 5),
-                child: Icon(
-                  Icons.menu,
-                  color: AppColor.customIconColor,
-                ))
+                child: PopupMenuButton(
+                    icon: const Icon(
+                      Icons.menu,
+                      color: AppColor.customIconColor,
+                    ),
+                    onSelected: (int value){
+                      switch(value){
+
+                        case 1:
+                        Get.to(UpdateProfileScreen());
+                        break;
+
+                        case 2:
+                        Authentication().deleteUser();
+                        Get.to(SignInScreen());
+                        break;
+
+                        case 3:
+                        Authentication().signOut();
+                        Get.to(SignInScreen());
+                        break;
+                      }
+                    },
+                    itemBuilder: (BuildContext context)=> <PopupMenuEntry<int>>[
+                      const PopupMenuItem<int>(
+                        value: 1,
+                        child: Text('Update Profile'),
+                      ),
+                      const PopupMenuItem(
+                        value: 2,
+                        child: Text('Delete account'),
+                      ),
+                      const PopupMenuItem(
+                        value: 3,
+                        child: Text('Sign out'),
+                      )
+                    ]),)
           ],
         ),
         body:Container(

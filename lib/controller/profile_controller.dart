@@ -22,7 +22,9 @@ class ProfileScreenController extends GetxController{
       profileImageUrl: '',
       job: '',
       aboutMe: '',
-    interest: ''
+    interest: '',
+    company: '',
+    collage: ''
   ).obs;
 
   void fetchCurrentUser()async{
@@ -34,6 +36,10 @@ class ProfileScreenController extends GetxController{
     catch(e){
       print(e);
     }
+  }
+
+  void updateProfile(UserModel updatedUser) {
+    currentUser.value = updatedUser;
   }
 
 }

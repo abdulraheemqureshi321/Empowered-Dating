@@ -9,6 +9,7 @@ import 'package:empowered_dating/widgets/profile_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../utils/constant_colors.dart';
 import '../../widgets/simple_text.dart';
 
@@ -25,11 +26,12 @@ class _SelectChatScreenState extends State<SelectChatScreen> {
   @override
   Widget build(BuildContext context) {
     List<String> images = ['assets/1.png','assets/2.png','assets/3.png','assets/4.png','assets/5.png','assets/1.png','assets/2.png','assets/3.png','assets/4.png','assets/5.png'];
-    List<String> titles = ['Patrica','Lyana','Merry','Merry','Merry','Patrica','Lyana','Merry','Merry','Merry'];
-    List<String> subTitle = ['Lorem lpsum is simply','Lorem lpsum is simply','Lorem lpsum is simply','Lorem lpsum is simply','Lorem lpsum is simply','Lorem lpsum is simply','Lorem lpsum is simply','Lorem lpsum is simply','Lorem lpsum is simply','Lorem lpsum is simply'];
 
     FirebaseAuth auth = FirebaseAuth.instance;
-    SelectChatScreenController selectChatScreenController = SelectChatScreenController();
+    SelectChatScreenController selectChatScreenController = Get.put(SelectChatScreenController());
+
+    User? currentUser = selectChatScreenController.getCurrentUser();
+
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -68,7 +70,7 @@ class _SelectChatScreenState extends State<SelectChatScreen> {
                   color: Colors.white,
                     child: ProfileTextFieldWidget(text: 'Search Messages', controller: _searchController, keyboardType: TextInputType.text, prefixIcon: Icons.search_outlined, prefixIconColor: AppColor.grayAC,radius: 0,)),
               ),
-               Padding(
+               const Padding(
                 padding: EdgeInsets.only(right: 20,left: 20),
                 child: Row(
                   children: [
@@ -119,17 +121,18 @@ class _SelectChatScreenState extends State<SelectChatScreen> {
                     builder: (context , snapshot){
                       if(snapshot.connectionState == ConnectionState.active){
                         if(snapshot.hasData){
+
                           QuerySnapshot chatRoomSnapshot = snapshot.data as QuerySnapshot;
                           return ListView.builder(
                             itemCount: chatRoomSnapshot.docs.length,
                             itemBuilder: (context , index){
 
-                              ChatRoomModel chatRoomModel = ChatRoomModel.fromMap(chatRoomSnapshot.docs[index].data() as Map<String , dynamic>);
+                              ChatRoomModel? chatRoomModel = ChatRoomModel.fromMap(chatRoomSnapshot.docs[index].data() as Map<String , dynamic>);
                               Map<String , dynamic> participants = chatRoomModel.participants!;
 
                               List<String> participantsKey = participants.keys.toList();
 
-                              participantsKey.remove(auth.currentUser!.uid);
+                              participantsKey.remove(currentUser!.uid);
 
                               return FutureBuilder(
                                 future: selectChatScreenController.getUserModelById(participantsKey[0]),
@@ -140,14 +143,14 @@ class _SelectChatScreenState extends State<SelectChatScreen> {
 
                                         UserModel targetUser = userData.data as UserModel;
                                         return Padding(
-                                          padding:  EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                                          padding:  const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                                           child: InkWell(
                                             onTap: (){
                                               Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatScreen(
                                                   targetUser: targetUser,
                                                   chatroom: chatRoomModel,
                                                   userModel: selectChatScreenController.currentUser.value,
-                                                  firebaseUser: auth.currentUser
+                                                  firebaseUser: FirebaseAuth.instance.currentUser!
                                               )));
                                             },
                                               child: ChatCard(imageUri: targetUser.profileImageUrl, title: targetUser.name, subTitle: chatRoomModel.lastMessage.toString())),
@@ -176,13 +179,13 @@ class _SelectChatScreenState extends State<SelectChatScreen> {
                           );
                         }
                         else{
-                          return Center(
+                          return const Center(
                             child: Text("No Chats "),
                           );
                         }
                       }
                       else {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(),
                         );
                       }

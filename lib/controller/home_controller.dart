@@ -43,7 +43,9 @@ class HomeScreenController extends GetxController{
       profileImageUrl: '',
       job: '',
       aboutMe: '',
-      interest: ''
+      interest: '',
+    company: '',
+    collage: ''
   ).obs;
 
   void fetchCurrentUser()async{

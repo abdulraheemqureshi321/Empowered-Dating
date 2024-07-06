@@ -3,6 +3,7 @@ import 'package:empowered_dating/models/chat_room_model.dart';
 import 'package:empowered_dating/models/user_model.dart';
 import 'package:empowered_dating/utils/constant_images.dart';
 import 'package:empowered_dating/view/chat_screens/chat_screen.dart';
+import 'package:empowered_dating/view/details_screen.dart';
 import 'package:empowered_dating/view/home_screen/widget/home_card.dart';
 import 'package:empowered_dating/view/home_screen/widget/near_you_card.dart';
 import 'package:empowered_dating/widgets/simple_text.dart';
@@ -126,13 +127,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     }
                     else
                       {
-                        return Center(
+                        return const Center(
                           child: Text("No Chats "),
                         );
                       }
                   }
                   else{
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
@@ -175,13 +176,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   }
                   else{
-                    return Center(
+                    return const Center(
                       child: Text("No Chats "),
                     );
                   }
                   }
                   else{
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
@@ -226,22 +227,19 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemBuilder: (context , index){
                               UserModel user = users[index];
                               return Padding(
-                                padding:  EdgeInsets.only(bottom: 10,right: 30,left: 20),
+                                padding:  const EdgeInsets.only(bottom: 10,right: 30,left: 20),
                                 child: InkWell(
                                   onTap: ()async{
 
-                                    ChatRoomModel? chatroomModel =  await homeController.getChatroomModel(users[index]);
-                                    if(chatroomModel != null){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatScreen(
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> DetailsScreen(
                                         targetUser: users[index],
                                         userModel: homeController.currentUser.value,
-                                        chatroom: chatroomModel,
                                         firebaseUser: currentUser,
                                       )
                                       )
                                       );
 
-                                    }
+
                                   },
                                   child: HomeCard(title: user.name, subTitle: user.location, imageUri: user.profileImageUrl),
                                 ),
@@ -256,14 +254,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       }
                       else
                         {
-                          return Center(
+                          return const Center(
                             child: Text("No Chats "),
                           );
                         }
                     }
                   else
                     {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }

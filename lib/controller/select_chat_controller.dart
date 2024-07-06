@@ -4,11 +4,15 @@ import 'package:get/get.dart';
 
 import '../models/user_model.dart';
 
-class SelectChatScreenController  {
+class SelectChatScreenController extends GetxController {
 
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+
+  User? getCurrentUser() {
+    return _auth.currentUser;
+  }
 
    Future<UserModel?> getUserModelById(String uid) async {
     UserModel? userModel;
@@ -29,7 +33,9 @@ class SelectChatScreenController  {
        profileImageUrl: '',
        job: '',
        aboutMe: '',
-       interest: ''
+       interest: '',
+     collage: '',
+     company: ''
    ).obs;
 
    void fetchCurrentUser()async{

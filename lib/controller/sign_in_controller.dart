@@ -19,6 +19,8 @@ class SignInController extends GetxController{
 
     if(res == "success"){
       Get.to(const BottomNavigation());
+      emailController.clear();
+      passwordController.clear();
     }
   }
 }

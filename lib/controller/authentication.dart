@@ -37,6 +37,7 @@ class Authentication {
   }
 
 
+
   // for sign in
   Future<String> signInUser(
       {required String email, required String password}) async {
@@ -54,8 +55,28 @@ class Authentication {
     return res;
   }
 
-  //for forgot password
+  //for Sign out
+  Future<void> signOut() async {
+    await _auth.signOut();
+  }
 
+  Future<void> deleteUser()async{
+
+    User? user = _auth.currentUser;
+
+    if(user != null)
+      {
+        // user delete
+        await _firestor.collection("users").doc(user.uid).delete();
+
+        // delete user profile
+        await _firestor.collection("profiles").doc(user.uid).delete();
+
+        // delete user
+        await user.delete();
+      }
+
+  }
 
 }
 

@@ -159,65 +159,69 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
             ),
             Expanded(
-                child: Container(
-                  padding: EdgeInsets.symmetric(
+              child: Container(
+                padding: const EdgeInsets.symmetric(
                     horizontal: 10
-                  ),
-                  child: StreamBuilder(
-                    stream:  FirebaseFirestore.instance.collection
-                      ("chatrooms").doc(widget.chatroom.chatroomid).collection
-                      ("messages").orderBy("createdon", descending: true).snapshots(),
-                    builder: (context , snapshot){
-                      if(snapshot.connectionState == ConnectionState.active){
-                        if(snapshot.hasData){
-                          QuerySnapshot dataSnapshot = snapshot.data as QuerySnapshot;
+                ),
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance.collection("chatrooms").doc(widget.chatroom.chatroomid).collection("messages").orderBy("createdon", descending: true).snapshots(),
+                  builder: (context, snapshot) {
+                    if(snapshot.connectionState == ConnectionState.active) {
+                      if(snapshot.hasData) {
+                        QuerySnapshot dataSnapshot = snapshot.data as QuerySnapshot;
 
-                          return ListView.builder(
-                            reverse: true,
-                              itemCount: dataSnapshot.docs.length,
-                            itemBuilder: (context , index){
-                                MessageModel currentMessage = MessageModel.fromMap(dataSnapshot.docs[index].data() as Map<String , dynamic>);
-                                return Row(
-                                  mainAxisAlignment: (currentMessage.sender == widget.userModel.uid) ? MainAxisAlignment.end : MainAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.symmetric(vertical: 2),
-                                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                                      decoration: BoxDecoration(
-                                        color: (currentMessage.sender == widget.userModel.uid)? AppColor.primaryColor : Colors.grey,
-                                        borderRadius: BorderRadius.circular(10),
+                        return ListView.builder(
+                          reverse: true,
+                          itemCount: dataSnapshot.docs.length,
+                          itemBuilder: (context, index) {
+                            MessageModel currentMessage = MessageModel.fromMap(dataSnapshot.docs[index].data() as Map<String, dynamic>);
+
+                            return Row(
+                              mainAxisAlignment: (currentMessage.sender == widget.userModel.uid) ? MainAxisAlignment.end : MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      vertical: 2,
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 10,
+                                      horizontal: 10,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: (currentMessage.sender == widget.userModel.uid) ? Colors.grey : Theme.of(context).colorScheme.secondary,
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: Text(
+                                      currentMessage.text.toString(),
+                                      style: const TextStyle(
+                                        color: Colors.white,
                                       ),
-                                      child: Text(currentMessage.text.toString(), style: TextStyle(
-                                        color: Colors.white
-                                      ),)
-                                  ),
-                                  ],
-                                );
-                            },
-                          );
-                        }
-                        else if(snapshot.hasError)
-                          {
-                            return Center(
-                              child: Text("an error occured!"),
+                                    )
+                                ),
+                              ],
                             );
-                          }
-                        else
-                          {
-                            return Center(
-                              child: Text("say hi to your  new friend"),
-                            );
-                          }
+                          },
+                        );
                       }
-                      else
-                        {
-                          return const Center(
-                            child: const CircularProgressIndicator(),
-                          );
-                        }
-                    },
-                  ),
-                )
+                      else if(snapshot.hasError) {
+                        return const Center(
+                          child: Text("An error occured! Please check your internet connection."),
+                        );
+                      }
+                      else {
+                        return const Center(
+                          child: Text("Say hi to your new friend"),
+                        );
+                      }
+                    }
+                    else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 10,right: 10,bottom: 10),
