@@ -14,12 +14,6 @@ class CreateProfileScreen extends StatefulWidget {
 
 class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
-
-
-  @override
-  Widget build(BuildContext context) {
-
-    double screenHight = MediaQuery.of(context).size.height;
     final TextEditingController nameController = TextEditingController();
     final TextEditingController locationController = TextEditingController();
     final TextEditingController jobController = TextEditingController();
@@ -28,6 +22,10 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
     final TextEditingController interestController = TextEditingController();
     final TextEditingController aboutMeController = TextEditingController();
 
+  @override
+  Widget build(BuildContext context) {
+
+    double screenHight = MediaQuery.of(context).size.height;
 
     return  Scaffold(
       body: Container(
@@ -64,9 +62,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                        padding: const EdgeInsets.only(left: 20,bottom: 5,top: 10),
-                        child: SimpleTextWidget(text: 'Name',fontSize: 14,)),
+                    customfield("title"),
                     ProfileTextFieldWidget(text: 'Enter Your Name', controller: nameController, keyboardType:TextInputType.text,suffixIconColor: const Color(0xffFDB813),suffixIcon: Icons.person,),
 
 
@@ -117,5 +113,11 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
         ),
       ),
     );
+  }
+
+  Padding customfield(String title) {
+    return Padding(
+                      padding: const EdgeInsets.only(left: 20,bottom: 5,top: 10),
+                      child: SimpleTextWidget(text: title,fontSize: 14,));
   }
 }
