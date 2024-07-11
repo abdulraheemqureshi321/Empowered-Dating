@@ -34,7 +34,7 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding:const EdgeInsets.only(top: 100, left: 40,right: 40, bottom: 20), ,
+        padding:const EdgeInsets.only(top: 100, left: 40,right: 40, bottom: 20),
         height: double.maxFinite,
         width: double.maxFinite,
         decoration: const BoxDecoration(
