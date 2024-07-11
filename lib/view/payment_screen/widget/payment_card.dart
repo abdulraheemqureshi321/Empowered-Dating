@@ -1,3 +1,4 @@
+import 'package:empowered_dating/utils/constant_colors.dart';
 import 'package:flutter/material.dart';
 
 class PaymentCard extends StatelessWidget {
@@ -24,7 +25,7 @@ class PaymentCard extends StatelessWidget {
           height: 120,
           width: double.maxFinite,
           decoration: BoxDecoration(
-              color: value ? const Color(0xff934C93) : const Color(0xffF0F0F0),
+              color: value ? AppColor.primaryColor : const Color(0xffF0F0F0),
               borderRadius: BorderRadius.circular(27)
           ),
           child:  Padding(
@@ -33,9 +34,9 @@ class PaymentCard extends StatelessWidget {
               title:  Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Weekly', style: TextStyle( fontSize: 24, fontWeight: FontWeight.w400,color: value ? Colors.white : Color(0xff934C93),),),
-                  Text('Standard Offer',style: TextStyle( fontSize: 14, fontWeight: FontWeight.w400,color:value ? Colors.white : Color(0xff934C93) ,)),
-                  Text('\$100.00 per week',style: TextStyle( fontSize: 18, fontWeight: FontWeight.w500, color: Color(0xffFDB813)))
+                  Text('Weekly', style: TextStyle( fontSize: 24, fontWeight: FontWeight.w400,color: value ? Colors.white : AppColor.primaryColor,),),
+                  Text('Standard Offer',style: TextStyle( fontSize: 14, fontWeight: FontWeight.w400,color:value ? Colors.white :AppColor.primaryColor ,)),
+                  Text('\$100.00 per week',style: TextStyle( fontSize: 18, fontWeight: FontWeight.w500, color: AppColor.customIconColor))
                 ],
               ),
 
@@ -46,7 +47,7 @@ class PaymentCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(100),
                   color: Colors.white
                 ),
-                child: value ? Icon(Icons.check, size: 35,color: Color(0xff934C93),) : null,
+                child: value ? Icon(Icons.check, size: 35,color: AppColor.primaryColor,) : null,
               ),
             ),
           ),

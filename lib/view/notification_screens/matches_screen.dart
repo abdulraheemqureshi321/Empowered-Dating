@@ -1,7 +1,9 @@
+import 'package:empowered_dating/utils/constant_images.dart';
 import 'package:empowered_dating/view/notification_screens/widget/match_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/constant_colors.dart';
 import '../../widgets/profile_text_field.dart';
 import '../../widgets/simple_text.dart';
 
@@ -33,13 +35,13 @@ class _MatchesScreenState extends State<MatchesScreen> {
           actions: const [
             Icon(
               CupertinoIcons.bell,
-              color: Color(0xffFDB813),
+              color: AppColor.customIconColor,
             ),
             Padding(
                 padding: EdgeInsets.only(right: 10, left: 5),
                 child: Icon(
                   Icons.menu,
-                  color: Color(0xffFDB813),
+                  color: AppColor.customIconColor,
                 ))
           ],
         ),
@@ -49,7 +51,7 @@ class _MatchesScreenState extends State<MatchesScreen> {
           decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage('assets/background.png'),
+              image: AssetImage(ConstantImages.customBgImg),
             ),
           ),
           child: SafeArea(
@@ -59,7 +61,7 @@ class _MatchesScreenState extends State<MatchesScreen> {
                  padding: const EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 20),
                  child: Container(
                      color: Colors.white,
-                     child: ProfileTextFieldWidget(text: 'Search Messages', controller: _searchController, keyboardType: TextInputType.text, prefixIcon: Icons.search_outlined,prefixIconColor: const Color(0xffACACAC),radius: 10,)),
+                     child: ProfileTextFieldWidget(text: 'Search Messages', controller: _searchController, keyboardType: TextInputType.text, prefixIcon: Icons.search_outlined,prefixIconColor: AppColor.grayAC,radius: 10,)),
                ),
                 Expanded(
                     child: ListView.builder(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../utils/constant_colors.dart';
+
 class ProfileTextFieldWidget extends StatelessWidget {
-   ProfileTextFieldWidget({super.key, this.filledColor,this.radius = 32,this.maxLine,required this.text,this.suffixIcon, required this.controller, required this.keyboardType, this.suffixIconColor, this.prefixIcon, this.prefixIconColor});
+   ProfileTextFieldWidget({super.key, this.validator,this.filledColor,this.radius = 32,this.maxLine,required this.text,this.suffixIcon, required this.controller, required this.keyboardType, this.suffixIconColor, this.prefixIcon, this.prefixIconColor});
 
    String text;
   final IconData? suffixIcon;
@@ -11,6 +13,8 @@ class ProfileTextFieldWidget extends StatelessWidget {
   final Color? suffixIconColor;
    final Color? prefixIconColor;
    final Color? filledColor;
+   final String? Function(String?)? validator;
+
 
    int? maxLine;
   double radius;
@@ -19,6 +23,7 @@ class ProfileTextFieldWidget extends StatelessWidget {
     return TextFormField(
       keyboardType: keyboardType,
       controller: controller,
+      validator: validator,
       maxLines: maxLine,
       decoration: InputDecoration(
         filled: filledColor != null ? true : false,
@@ -29,31 +34,31 @@ class ProfileTextFieldWidget extends StatelessWidget {
         hintStyle: const TextStyle(
             fontSize: 17,
             fontWeight: FontWeight.w400,
-            color: Color(0xffACACAC)
+            color: AppColor.grayAC
         ),
         contentPadding: const EdgeInsets.all(20),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(radius),
             borderSide: const BorderSide(
-                color: Color(0xffACACAC)
+                color: AppColor.grayAC
             )
         ),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(radius),
             borderSide: const BorderSide(
-                color: Color(0xffACACAC)
+                color: AppColor.grayAC
             )
         ),
         disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(radius),
             borderSide: const BorderSide(
-                color: Color(0xffACACAC)
+                color: AppColor.grayAC
             )
         ),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(radius),
             borderSide: const BorderSide(
-                color: Color(0xffACACAC)
+                color: AppColor.grayAC
             )
         ),
       ),

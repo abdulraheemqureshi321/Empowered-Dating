@@ -1,9 +1,18 @@
+import 'package:empowered_dating/controller/home_controller.dart';
+import 'package:empowered_dating/models/chat_room_model.dart';
+import 'package:empowered_dating/models/user_model.dart';
+import 'package:empowered_dating/utils/constant_images.dart';
+import 'package:empowered_dating/view/chat_screens/chat_screen.dart';
+import 'package:empowered_dating/view/details_screen.dart';
 import 'package:empowered_dating/view/home_screen/widget/home_card.dart';
 import 'package:empowered_dating/view/home_screen/widget/near_you_card.dart';
 import 'package:empowered_dating/widgets/simple_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../utils/constant_colors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,28 +22,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<String> images = [
-    'assets/1.png',
-    'assets/2.png',
-    'assets/3.png',
-    'assets/4.png',
-    'assets/5.png',
-    'assets/6.png'
-  ];
-  List<String> images2 = ['assets/container1.png', 'assets/container2.png'];
-  List<String> titles = ['Sahara Ardia Fadia', 'Nathalia Angeline'];
-  List<String> subTitles = ['Nurse', 'Dancer, Friendly'];
-  List<String> distance = ['0.5 km', '0.5 km'];
 
-  List<String> name = ['Natasya Valentina','Natasya Valentina'];
-  List<String> location = ['Sekarwangi, Cibadak','Sekarwangi, Cibadak'];
-  List<String> profile = ['assets/boy.png','assets/girl.png'];
+
+  final HomeScreenController homeController = Get.put(HomeScreenController());
 
 
 
   @override
   Widget build(BuildContext context) {
+
+    User? currentUser = homeController.getCurrentUser();
+
     return Scaffold(
+
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -46,13 +46,13 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: const [
           Icon(
             CupertinoIcons.bell,
-            color: Color(0xffFDB813),
+            color: AppColor.customIconColor,
           ),
           Padding(
               padding: EdgeInsets.only(right: 10, left: 5),
               child: Icon(
                 Icons.menu,
-                color: Color(0xffFDB813),
+                color: AppColor.customIconColor,
               ))
         ],
       ),
@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.fill,
-            image: AssetImage('assets/background.png'),
+            image: AssetImage(ConstantImages.customBgImg),
           ),
         ),
         child: Column(
@@ -78,17 +78,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     'New Matches',
-                    style: TextStyle(fontSize: 14, color: Color(0xff5E5E5E)),
+                    style: TextStyle(fontSize: 14, color:AppColor.gray5E),
                   ),
                   Spacer(),
                   Text(
                     'See All',
-                    style: TextStyle(fontSize: 12, color: Color(0xff934C93)),
+                    style: TextStyle(fontSize: 12, color: AppColor.primaryColor),
                   ),
                   Icon(
                     Icons.arrow_forward,
                     weight: 2,
-                    color: Color(0xff934C93),
+                    color: AppColor.primaryColor,
                   )
                 ],
               ),
@@ -99,18 +99,47 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 100,
               width: double.infinity,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: images.length,
-                  itemBuilder: (context , index){
-                return Padding(
-                  padding: const EdgeInsets.only(right: 5,left: 5),
-                  child: CircleAvatar(
-                    radius: 40,
-                    backgroundImage: AssetImage(images[index]),
-                  ),
-                );
-              }),
+              child: StreamBuilder<List <UserModel>>(
+                stream: homeController.getUsersStream(),
+                builder: (context , snapshot){
+                  if(snapshot.connectionState == ConnectionState.active){
+                    if(snapshot.hasData){
+                      List<UserModel> users = snapshot.data!;
+                      users.removeWhere((user) => user.uid == currentUser?.uid);
+                      return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: users.length,
+                          itemBuilder: (context , index){
+                            UserModel user = users[index];
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 5,left: 5),
+                              child: CircleAvatar(
+                                radius: 40,
+                                backgroundImage: NetworkImage(user.profileImageUrl),
+                              ),
+                            );
+                          });
+                    }
+                    else if(snapshot.hasError){
+                      return Center(
+                        child: Text(snapshot.error.toString()),
+                      );
+                    }
+                    else
+                      {
+                        return const Center(
+                          child: Text("No Chats "),
+                        );
+                      }
+                  }
+                  else{
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+
+                },
+              ),
             ),
 
             const Padding(
@@ -126,12 +155,40 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 210,
               width: double.infinity,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: titles.length,
-                  itemBuilder: (context ,index){
-                return NearYouCard(imageUri: images2[index], distance: distance[index], title: titles[index], subTitle: subTitles[index]);
-              }),
+              child: StreamBuilder<List <UserModel>>(
+                stream: homeController.getUsersStream(),
+                builder: (context , snapshot){
+                  if(snapshot.connectionState == ConnectionState.active){
+                  if(snapshot.hasData){
+                    List<UserModel> users = snapshot.data!;
+                    users.removeWhere((user) => user.uid == currentUser?.uid);
+                    return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: users.length,
+                        itemBuilder: (context ,index){
+                          UserModel user = users[index];
+                          return NearYouCard(imageUri: user.profileImageUrl, distance: '0.5 km', title: user.name, subTitle: user.job);
+                        });
+                  }
+                  else if(snapshot.hasError){
+                    return Center(
+                      child: Text(snapshot.error.toString()),
+                    );
+                  }
+                  else{
+                    return const Center(
+                      child: Text("No Chats "),
+                    );
+                  }
+                  }
+                  else{
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+
+                },
+              ),
             ),
             const Padding(
               padding: EdgeInsets.only(top: 20, bottom: 20,left: 20,right: 20),
@@ -156,15 +213,61 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: name.length,
-                  itemBuilder: (context , index){
-               return Padding(
-                  padding: const EdgeInsets.only(bottom: 10,right: 30,left: 20),
-                  child: HomeCard(title: name[index], subTitle: location[index], imageUri: profile[index]),
-                );
+              child: StreamBuilder<List <UserModel>>(
+                stream: homeController.getUsersStream(),
+                builder: (context , snapshot){
+                  if(snapshot.connectionState == ConnectionState.active)
+                    {
+                      if(snapshot.hasData){
+                        List<UserModel> users = snapshot.data!;
+                        users.removeWhere((user) => user.uid == currentUser?.uid);
+                        return ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: users.length,
+                            itemBuilder: (context , index){
+                              UserModel user = users[index];
+                              return Padding(
+                                padding:  const EdgeInsets.only(bottom: 10,right: 30,left: 20),
+                                child: InkWell(
+                                  onTap: ()async{
 
-              }),
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> DetailsScreen(
+                                        targetUser: users[index],
+                                        userModel: homeController.currentUser.value,
+                                        firebaseUser: currentUser,
+                                      )
+                                      )
+                                      );
+
+
+                                  },
+                                  child: HomeCard(title: user.name, subTitle: user.location, imageUri: user.profileImageUrl),
+                                ),
+                              );
+
+                            });
+                      }
+                      else if(snapshot.hasError){
+                        return Center(
+                          child: Text(snapshot.error.toString()),
+                        );
+                      }
+                      else
+                        {
+                          return const Center(
+                            child: Text("No Chats "),
+                          );
+                        }
+                    }
+                  else
+                    {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+
+                },
+              ),
             )
           ],
         ),

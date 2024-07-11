@@ -1,9 +1,12 @@
+import 'package:empowered_dating/utils/constant_images.dart';
 import 'package:empowered_dating/view/new_password_screen.dart';
 import 'package:empowered_dating/widgets/button_widget.dart';
 import 'package:empowered_dating/widgets/simple_text.dart';
 import 'package:empowered_dating/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+
+import '../utils/constant_colors.dart';
 
 class VerifyScreen extends StatefulWidget {
   const VerifyScreen({super.key});
@@ -25,7 +28,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.fitWidth,
-            image: AssetImage('assets/background.png'),
+            image: AssetImage(ConstantImages.customBgImg),
 
           ),
         ),
@@ -54,8 +57,8 @@ class _VerifyScreenState extends State<VerifyScreen> {
                     shape: PinCodeFieldShape.circle,
                     fieldHeight: 55,
                     fieldWidth: 55,
-                    selectedColor: const Color(0xff934C93),
-                    inactiveColor: const Color(0xff934C93),
+                    selectedColor: AppColor.primaryColor,
+                    inactiveColor: AppColor.primaryColor,
                   ),
                 ),
               ),

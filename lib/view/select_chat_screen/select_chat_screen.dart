@@ -1,9 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:empowered_dating/controller/select_chat_controller.dart';
+import 'package:empowered_dating/models/chat_room_model.dart';
+import 'package:empowered_dating/models/user_model.dart';
+import 'package:empowered_dating/utils/constant_images.dart';
 import 'package:empowered_dating/view/chat_screens/chat_screen.dart';
 import 'package:empowered_dating/view/select_chat_screen/widget/chat_card.dart';
 import 'package:empowered_dating/widgets/profile_text_field.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import '../../utils/constant_colors.dart';
 import '../../widgets/simple_text.dart';
 
 class SelectChatScreen extends StatefulWidget {
@@ -19,8 +26,12 @@ class _SelectChatScreenState extends State<SelectChatScreen> {
   @override
   Widget build(BuildContext context) {
     List<String> images = ['assets/1.png','assets/2.png','assets/3.png','assets/4.png','assets/5.png','assets/1.png','assets/2.png','assets/3.png','assets/4.png','assets/5.png'];
-    List<String> titles = ['Patrica','Lyana','Merry','Merry','Merry','Patrica','Lyana','Merry','Merry','Merry'];
-    List<String> subTitle = ['Lorem lpsum is simply','Lorem lpsum is simply','Lorem lpsum is simply','Lorem lpsum is simply','Lorem lpsum is simply','Lorem lpsum is simply','Lorem lpsum is simply','Lorem lpsum is simply','Lorem lpsum is simply','Lorem lpsum is simply'];
+
+    FirebaseAuth auth = FirebaseAuth.instance;
+    SelectChatScreenController selectChatScreenController = Get.put(SelectChatScreenController());
+
+    User? currentUser = selectChatScreenController.getCurrentUser();
+
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -36,7 +47,7 @@ class _SelectChatScreenState extends State<SelectChatScreen> {
               padding: EdgeInsets.only(right: 10, left: 5),
               child: Icon(
                 Icons.delete_outline,
-                color: Color(0xffFDB813),
+                color: AppColor.customIconColor,
               ))
         ],
       ),
@@ -46,7 +57,7 @@ class _SelectChatScreenState extends State<SelectChatScreen> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.fill,
-            image: AssetImage('assets/background.png'),
+            image: AssetImage(ConstantImages.customBgImg),
           ),
         ),
         child: SafeArea(
@@ -57,25 +68,25 @@ class _SelectChatScreenState extends State<SelectChatScreen> {
                 padding: const EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 20),
                 child: Container(
                   color: Colors.white,
-                    child: ProfileTextFieldWidget(text: 'Search Messages', controller: _searchController, keyboardType: TextInputType.text, prefixIcon: Icons.search_outlined, prefixIconColor: const Color(0xffACACAC),radius: 0,)),
+                    child: ProfileTextFieldWidget(text: 'Search Messages', controller: _searchController, keyboardType: TextInputType.text, prefixIcon: Icons.search_outlined, prefixIconColor: AppColor.grayAC,radius: 0,)),
               ),
-              const Padding(
+               const Padding(
                 padding: EdgeInsets.only(right: 20,left: 20),
                 child: Row(
                   children: [
                     Text(
                       'New Matches',
-                      style: TextStyle(fontSize: 14, color: Color(0xff5E5E5E)),
+                      style: TextStyle(fontSize: 14, color: AppColor.gray5E),
                     ),
                     Spacer(),
                     Text(
                       'See All',
-                      style: TextStyle(fontSize: 12, color: Color(0xff934C93)),
+                      style: TextStyle(fontSize: 12, color: AppColor.primaryColor),
                     ),
                     Icon(
                       Icons.arrow_forward,
                       weight: 2,
-                      color: Color(0xff934C93),
+                      color: AppColor.primaryColor
                     )
                   ],
                 ),
@@ -101,22 +112,85 @@ class _SelectChatScreenState extends State<SelectChatScreen> {
               const SizedBox(height: 20,),
               const Padding(
                 padding: EdgeInsets.only(left: 20),
-                child: Text('Messages', style: TextStyle(fontSize: 14, color: Color(0xff5E5E5E)),),
+                child: Text('Messages', style: TextStyle(fontSize: 14, color: AppColor.gray5E),),
               ),
               const SizedBox(height: 20,),
               Expanded(
-                  child: ListView.builder(
-                    itemCount: titles.length,
-                      itemBuilder: (context , index){
-                    return InkWell(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatScreen()));
-                      },
-                      child: Padding(
-                          padding: const EdgeInsets.only( bottom: 10),
-                          child: ChatCard(imageUri: images[index], title: titles[index], subTitle: subTitle[index])),
-                    );
-                  }),
+                  child: StreamBuilder(
+                    stream: FirebaseFirestore.instance.collection("chatrooms").where("participants.${auth.currentUser!.uid}", isEqualTo: true).snapshots(),
+                    builder: (context , snapshot){
+                      if(snapshot.connectionState == ConnectionState.active){
+                        if(snapshot.hasData){
+
+                          QuerySnapshot chatRoomSnapshot = snapshot.data as QuerySnapshot;
+                          return ListView.builder(
+                            itemCount: chatRoomSnapshot.docs.length,
+                            itemBuilder: (context , index){
+
+                              ChatRoomModel? chatRoomModel = ChatRoomModel.fromMap(chatRoomSnapshot.docs[index].data() as Map<String , dynamic>);
+                              Map<String , dynamic> participants = chatRoomModel.participants!;
+
+                              List<String> participantsKey = participants.keys.toList();
+
+                              participantsKey.remove(currentUser!.uid);
+
+                              return FutureBuilder(
+                                future: selectChatScreenController.getUserModelById(participantsKey[0]),
+                                builder: (context , userData){
+                                  if(userData.connectionState == ConnectionState.done){
+                                    if(userData.data != null)
+                                      {
+
+                                        UserModel targetUser = userData.data as UserModel;
+                                        return Padding(
+                                          padding:  const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                                          child: InkWell(
+                                            onTap: (){
+                                              Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatScreen(
+                                                  targetUser: targetUser,
+                                                  chatroom: chatRoomModel,
+                                                  userModel: selectChatScreenController.currentUser.value,
+                                                  firebaseUser: FirebaseAuth.instance.currentUser!
+                                              )));
+                                            },
+                                              child: ChatCard(imageUri: targetUser.profileImageUrl, title: targetUser.name, subTitle: chatRoomModel.lastMessage.toString())),
+                                        );
+
+                                      }
+                                    else
+                                    {
+
+                                      return Container();
+                                    }
+                                    }
+                                  else
+                                    {
+                                      return Container();
+                                    }
+                                   },
+                              );
+                            },
+                          );
+
+                        }
+                        else if(snapshot.hasError){
+                          return Center(
+                            child: Text(snapshot.error.toString()),
+                          );
+                        }
+                        else{
+                          return const Center(
+                            child: Text("No Chats "),
+                          );
+                        }
+                      }
+                      else {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                  ),
               )
 
             ],

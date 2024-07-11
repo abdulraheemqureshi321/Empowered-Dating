@@ -1,8 +1,16 @@
+import 'package:empowered_dating/controller/authentication.dart';
+import 'package:empowered_dating/controller/create_profile_controller.dart';
+import 'package:empowered_dating/utils/constant_images.dart';
 import 'package:empowered_dating/view/profile_screen/widget/row_widget.dart';
+import 'package:empowered_dating/view/sign_in_screen.dart';
+import 'package:empowered_dating/view/update_profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
+import '../../controller/profile_controller.dart';
+import '../../utils/constant_colors.dart';
 import '../../widgets/simple_text.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -15,6 +23,9 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
 
   List<String> images =['assets/1.png','assets/2.png','assets/3.png','assets/4.png','assets/5.png','assets/6.png','assets/1.png','assets/2.png','assets/3.png','assets/4.png','assets/5.png','assets/6.png'];
+
+  final ProfileScreenController profileScreenController = Get.put(ProfileScreenController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,13 +37,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
             fontSize: 16,
           ),
           centerTitle: true,
-          actions: const [
+          actions:  [
+
             Padding(
                 padding: EdgeInsets.only(right: 10, left: 5),
-                child: Icon(
-                  Icons.menu,
-                  color: Color(0xffFDB813),
-                ))
+                child: PopupMenuButton(
+                    icon: const Icon(
+                      Icons.menu,
+                      color: AppColor.customIconColor,
+                    ),
+                    onSelected: (int value){
+                      switch(value){
+
+                        case 1:
+                        Get.to(UpdateProfileScreen());
+                        break;
+
+                        case 2:
+                        Authentication().deleteUser();
+                        Get.to(SignInScreen());
+                        break;
+
+                        case 3:
+                        Authentication().signOut();
+                        Get.to(SignInScreen());
+                        break;
+                      }
+                    },
+                    itemBuilder: (BuildContext context)=> <PopupMenuEntry<int>>[
+                      const PopupMenuItem<int>(
+                        value: 1,
+                        child: Text('Update Profile'),
+                      ),
+                      const PopupMenuItem(
+                        value: 2,
+                        child: Text('Delete account'),
+                      ),
+                      const PopupMenuItem(
+                        value: 3,
+                        child: Text('Sign out'),
+                      )
+                    ]),)
           ],
         ),
         body:Container(
@@ -41,7 +86,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage('assets/background.png'),
+              image: AssetImage(ConstantImages.customBgImg),
             ),
           ),
 
@@ -51,12 +96,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 children: [
                   const SizedBox(height: 20,),
-                  const CircleAvatar(
-                    backgroundImage: AssetImage('assets/2.png'),
-                    radius: 60,
-                  ),
+                   Obx((){
+                     return CircleAvatar(
+                       backgroundImage: NetworkImage(profileScreenController.currentUser.value.profileImageUrl),
+                       radius: 60,
+                     );
+                   }),
                   const SizedBox(height: 10,),
-                  const Text('Brian Immanual, 24',style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,color: Color(0xff5E5E5E)),),
+                  Obx((){
+                   return Text(profileScreenController.currentUser.value.name,style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,color: AppColor.gray5E),);
+                  }),
                   const SizedBox(height: 10,),
                   Container(
                     height: 33,
@@ -64,15 +113,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(
-                        color: const Color(0xff934C93),
+                        color: AppColor.primaryColor,
                         width: 1,
                       )
                     ),
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(CupertinoIcons.heart, color: Color(0xff934C93),size: 16,),
-                        Text(' 10 k', style: TextStyle(fontSize: 12,color: Color(0xff934C93)),)
+                        Icon(CupertinoIcons.heart, color: AppColor.primaryColor,size: 16,),
+                        Text(' 10 k', style: TextStyle(fontSize: 12,color: AppColor.primaryColor),)
                       ],
                     ),
                   ),
@@ -95,26 +144,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const SizedBox(height: 20,),
                   const Align(
                     alignment: Alignment.topLeft,
-                      child: Text('About Me', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Color(0xff5E5E5E)),)),
+                      child: Text('About Me', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColor.gray5E),)),
                   const SizedBox(height: 10,),
-                  const Text('I\'m here when you need a sunny day,something good.We can sing together on the beach and burn bonfires atnight with the moonlight. See you under the night sky !', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xffACACAC)),),
+                  Obx((){
+                   return Text(profileScreenController.currentUser.value.aboutMe, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: AppColor.grayAC),);
+                  }),
                   const SizedBox(height: 20,),
                   const Row(
                     children: [
                       Text(
                         'Gallery',
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700,color: Color(0xff5E5E5E)),
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700,color: AppColor.gray5E),
                       ),
                       Spacer(),
                       Text(
                         'See All',
-                        style: TextStyle(fontSize: 12, color: Color(0xff934C93)),
+                        style: TextStyle(fontSize: 12, color: AppColor.primaryColor),
                       ),
                       SizedBox(width: 5,),
                       Icon(
                         Icons.arrow_forward,
                         weight: 2,
-                        color: Color(0xff934C93),
+                        color: AppColor.primaryColor,
                       )
                     ],
                   ),
